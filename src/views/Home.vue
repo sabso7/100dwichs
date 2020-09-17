@@ -58,13 +58,17 @@ html {
   margin: 5%;
 }
 
+.blockquote{
+  text-align: justify;
+}
+
 .home-block {
   padding-top: 5%;
 }
 
 .theme--light.v-divider {
   border-color: lightgray !important;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 #carousel-card {
@@ -84,4 +88,9 @@ html {
 #big-home-img {
   max-height: 1000px;
 }
+
+.btn-galerie{
+  margin-top: 20px;
+}
+
 </style>

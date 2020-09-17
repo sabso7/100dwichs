@@ -1,10 +1,14 @@
 <template>
+<v-main>
+  <v-row justify="center" class="title"><h1 class="font-weight-light">{{ $route.params.name}}</h1></v-row>
+  <v-divider inset></v-divider>
+  <description></description>
   <v-row>
     <v-col cols="12" sm="6" offset-sm="3">
         <v-container fluid>
           <v-row>
             <v-col
-              v-for="n in 9"
+              v-for="n in 12"
               :key="n"
               class="d-flex child-flex"
               cols="4"
@@ -32,14 +36,20 @@
         </v-container>
     </v-col>
   </v-row>
+</v-main>
 </template>
 
 <script>
+import Description from '../components/DescriptionGallerie.vue'
 export default {
-
+  components: { Description }
 }
 </script>
 
 <style>
+
+.title{
+  padding-top: 5%;
+}
 
 </style>
