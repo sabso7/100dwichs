@@ -6,9 +6,11 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-    <v-footer color="grey" app>
-      <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    <v-container id="footer">
+       <v-footer color="grey" absolute>
+         <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
+       </v-footer>
+    </v-container>
   </v-app>
 </template>
 
@@ -22,6 +24,14 @@ export default {
 
 <style>
 
+  #footer{
+      padding-top: 10%;
+  }
+
+  
+
   ::-webkit-scrollbar {display:none;};
+
+ 
 
 </style>

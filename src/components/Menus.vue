@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar dense flat light collapse-on-scroll>
+  <v-toolbar dense flat light >
 
     <v-row>
       <router-link to="/">
@@ -10,17 +10,19 @@
     <div class='linkMenu' v-for="cat in categorie" v-bind:key="cat.nomCategorie">
       <v-menu v-if="cat.sousCategories.length" open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn dark v-bind="attrs" v-on="on">{{cat.nomCategorie}}</v-btn>
+          <v-btn text color="dark" v-bind="attrs" v-on="on">{{cat.nomCategorie}}</v-btn>
         </template>
         <v-list>
           <v-list-item v-for="(sscat, index) in cat.sousCategories" :key="index">
-            <v-list-item-title>
-              <v-btn :to="{ path: '/galerie/' + sscat.nomSouscategorie }">{{ sscat.nomSouscategorie }}</v-btn>
+            <v-list-item-title class="align-content-center" >
+              <v-btn text small color="dark" :to="{ path: '/galerie/' + sscat.nomSouscategorie }">{{ sscat.nomSouscategorie }}</v-btn>
             </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
     </div>
+    <v-btn text color="dark" to="/about">à propos</v-btn>
+    <v-btn text color="dark" to="/contact">contact</v-btn>
   </v-toolbar>
 </template>
 
@@ -40,10 +42,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-.linkMenu {
-  padding: 1%;
-}
 
 #logo-navbar {
   max-width: 100px;
