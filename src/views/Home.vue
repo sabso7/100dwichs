@@ -1,26 +1,21 @@
 <template>
-  <v-main>
-    <div v-for="cat in categorie"  v-bind:key="cat.nomCategorie">
-      <p>{{cat.nomCategorie}}</p>
-    </div>
-    <v-btn @click="getCategorie">Increment</v-btn>
+  <v-main id="home">
+    <v-container>
+      <v-carousel hide-delimiters :show-arrows="false" height="1000" cycle>
+        <v-carousel-item><v-img id="home-img" src="@/assets/logos/chine-1.jpg"></v-img></v-carousel-item>
+        <v-carousel-item><v-img id="home-img" src="@/assets/logos/chine-2.jpg"></v-img></v-carousel-item>
+        <v-carousel-item><v-img id="home-img" src="@/assets/logos/chine-3.jpg"></v-img></v-carousel-item>
+        <v-carousel-item><v-img id="home-img" src="@/assets/logos/chine-4.jpg"></v-img></v-carousel-item>
+      </v-carousel>
+    </v-container>
   </v-main>
 </template>
 
 <script>
-
-import { mapState, mapActions } from 'vuex'
-export default {
-    computed: {
-        ...mapState(['categorie'])
-    },
-    methods: {
-        ...mapActions(['getCategorie'])
-    },
-    beforeMount(){
-        this.getCategorie()
-    },
-}
-
-
 </script>
+
+<style lang="scss">
+#home {
+  margin-top: 2%;
+}
+</style>

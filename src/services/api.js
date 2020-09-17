@@ -5,7 +5,7 @@ class OnSetApi{
         const baseURL = "https://127.0.0.1:8000"; // https://api.onset-rp.com/
         this.api = axios.create({
           baseURL,
-          timeout: 1000,
+          timeout: 6000,
           headers: {
             accept: "application/json"
           }
@@ -18,6 +18,7 @@ class OnSetApi{
           .then(({ data }) => data)
           .catch(error => console.log(error));
     }
+
 }
 
 const api = new OnSetApi();
