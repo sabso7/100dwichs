@@ -1,8 +1,19 @@
 <template>
   <v-main id="home">
     <v-container id="home-banner-title">
-      <v-img id="big-home-img" src="@/assets/img/canada-1.jpg"></v-img>
-      <v-img id="title-home-img" src="@/assets/logos/logo-3.png"></v-img>
+      <v-img id="big-home-img" src="@/assets/banner/banner-1.jpg" lazy-src="@/assets/banner/banner-1.jpg">
+      <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular indeterminate color="black"></v-progress-circular>
+                    </v-row>
+      </template>
+      </v-img>
+      <v-img id="title-home-img" src="@/assets/logos/logo-3.png">
+      </v-img>
     </v-container>
     <v-divider inset></v-divider>
     <v-container class="home-block">
@@ -51,7 +62,7 @@ html {
 }
 
 #home {
-  margin-top: 2%;
+  
 }
 
 .blocktext {
@@ -78,7 +89,7 @@ html {
 
 #title-home-img {
   position: absolute;
-  top: 230px;
+  top: 20vh;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 500px;

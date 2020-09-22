@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Photo from '../views/Photo.vue'
+import Backoffice from '../views/Backoffice.vue'
 
 Vue.use(VueRouter)
 
@@ -12,9 +13,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/galerie/:name',
+    path: '/galerie/:name/:id',
     name: 'Photo',
     component: Photo
+  },
+  {
+    path: '/backoffice',
+    name: 'Backoffice',
+    component: Backoffice
   }
 ]
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 class OnSetApi{
     constructor() {
-        const baseURL = "https://127.0.0.1:8000"; // https://api.onset-rp.com/
+        const baseURL = "https://127.0.0.1:8000/api"; // https://api.onset-rp.com/
         this.api = axios.create({
           baseURL,
           timeout: 6000,
@@ -14,9 +14,23 @@ class OnSetApi{
 
     async getCategories() {
         return await this.api
-          .get("/api/categories")
+          .get("/categories")
           .then(({ data }) => data)
           .catch(error => console.log(error));
+    }
+
+    async addPhoto(data) {
+      return await this.api
+        .post("characters", data)
+        .then(({ data }) => data)
+        .catch(error => console.log(error));
+    }
+
+    async getSouscategorieById(id) {
+      return await this.api
+        .get("/sous_categories/" + id)
+        .then(({ data }) => data)
+        .catch(error => console.log(error));
     }
 
 }

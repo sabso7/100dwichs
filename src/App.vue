@@ -1,14 +1,16 @@
 <template>
-  <v-app id="appBody">
+  <v-app id="app-body">
     <v-container>
       <menus></menus>
     </v-container>
-    <v-main>
+   
       <router-view></router-view>
-    </v-main>
+    
     <v-container id="footer">
        <v-footer color="grey" absolute>
          <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
+         <v-spacer></v-spacer>
+         <router-link to="/backoffice"><v-icon>mdi-lock</v-icon></router-link>
        </v-footer>
     </v-container>
   </v-app>
@@ -28,10 +30,9 @@ export default {
       padding-top: 10%;
   }
 
-  
-
   ::-webkit-scrollbar {display:none;};
 
- 
-
+  @media screen {
+    
+  }
 </style>

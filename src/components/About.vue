@@ -10,7 +10,7 @@
 Mon diplôme en poche, je décide de partir à l'aventure, seule, avec comme objectif d'allier mes 3 passions :
  <b>photographie</b>, <b>voyage</b> et <b>agriculture</b>.<br>
 J'expérimente pour la première fois le Wwoofing, volontariat dans des fermes biologiques. Cette façon de voyager devient rapidement un hobby.
-Je multiplie les rencontres et les expériences en parcourant : <router-link to="/galerie/russie"><b>Russie</b></router-link>, <b>Chine</b>, <b>Thaïlande</b>, <b>Népal</b>, <b>Nouvelle Zélande</b>, <b>Inde</b>, <b>Japon</b> et <b>Amérique centrale</b>.<br>
+Je multiplie les rencontres et les expériences en parcourant : <b>Russie</b>, <b>Chine</b>, <b>Thaïlande</b>, <b>Népal</b>, <b>Nouvelle Zélande</b>, <b>Inde</b>, <b>Japon</b> et <b>Amérique centrale</b>.<br>
 En 2015, je pose mes valises à Paris et travaille en tant que retoucheuse photo aux Éditions Jalou (Jalouse, l'Officiel de la Mode...).<br>
 Les voyages m'ont <b>ouvert l'esprit</b> et m'ont permis aujourd'hui de lancer mon entreprise avec mes valeurs qui sont : le <b>partage</b>, <b>l'expérience</b> et la <b>créativité</b>.
 C'est dans cette démarche simple et humaine que je souhaite créer de nouvelles rencontres et de belles images avec vous.
@@ -39,4 +39,10 @@ export default {};
 </script>
 
 <style>
+
+a{
+  text-decoration: none;
+}
+
+
 </style>
