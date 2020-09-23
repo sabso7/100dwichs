@@ -20,8 +20,12 @@ class OnSetApi{
     }
 
     async addPhoto(data) {
+      console.log(data);
       return await this.api
-        .post("characters", data)
+        .post("/photos", {
+          "imageName": data.file.name,
+          "photoSouscategorie": '/api/sous_categories/'+data.sousCateg.id
+        })
         .then(({ data }) => data)
         .catch(error => console.log(error));
     }

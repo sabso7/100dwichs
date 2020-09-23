@@ -3,18 +3,17 @@
     <v-row justify="center" class="title"
       ><h1 class="font-weight-light">{{ $route.params.name }}</h1></v-row
     >
-    <p>test{{photos}}</p>
     <v-divider inset></v-divider>
     <description></description>
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <v-container fluid>
           <v-row>
-            <v-col v-for="n in 12" :key="n" class="d-flex child-flex" cols="4">
+            <v-col v-for="photo in photos" :key="photo.imageName" class="d-flex child-flex" cols="4">
               <v-card flat tile class="d-flex">
                 <v-img
-                  :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                  :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                  :src="getImgUrl(photo.imageName)"
+                  :lazy-src="getImgUrl(photo.imageName)"
                   aspect-ratio="1"
                   class="grey lighten-2"
                 >
@@ -50,6 +49,10 @@ export default {
   },
   methods: {
     ...mapActions(["getPhotos"]),
+    getImgUrl(nomPhoto){
+      console.log(nomPhoto);
+      return require('../assets/img/'+nomPhoto);
+    }
   },
   beforeMount() {
     this.getPhotos(this.$route.params.id);

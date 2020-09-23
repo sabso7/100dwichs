@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     categorie: null,
     isLoading: false,
-    photos: null
+    photos: null,
+    addPhoto: null
   },
   mutations: {
     setCategorie(state, categorie){
@@ -20,6 +21,10 @@ export default new Vuex.Store({
     },
     setPhotos(state, photos){
       state.photos = photos;
+      state.isLoading = false;
+    },
+    setAddPhoto(state, addPhoto){
+      state.addPhoto = addPhoto;
       state.isLoading = false;
     },
   },
@@ -37,10 +42,9 @@ export default new Vuex.Store({
       commit("setPhotos", photos );
     },
 
-    async addPhoto({commit}) {
-      commit("setIsLoading");
-      const categorie = await api.addPhoto();
-      commit("setCategorie", categorie);
+    async addPhoto({commit},data) {
+      const addPhoto = await api.addPhoto(data);
+      commit("setAddPhoto",addPhoto)
     }
 
   },

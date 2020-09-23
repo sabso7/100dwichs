@@ -2,7 +2,8 @@
   <v-toolbar dense flat light>
     <v-row>
       <router-link to="/">
-        <v-img v-bind="size" id="logo-navbar" lazy-src="@/assets/logos/logo-1.png" src="@/assets/logos/logo-1.png"></v-img>
+        <v-img v-bind="size" id="logo-navbar" lazy-src="@/assets/logos/logo-1.png" src="@/assets/logos/logo-1.png">
+        </v-img>
       </router-link>
     </v-row>
     <v-progress-circular v-if="isLoading == true"  indeterminate color="blue"></v-progress-circular>

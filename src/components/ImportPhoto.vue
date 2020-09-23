@@ -1,9 +1,9 @@
 <template>
   <v-main>
-    <v-form @submit.prevent>
+    <v-form @submit.prevent="addPhoto(selectCategorie,selectSouscategorie,file)">
       <v-select
       class="champ-form"
-        v-model="select"
+        v-model="selectCategorie"
         :items="categorie"
         label="Menu"
         item-text="nomCategorie"
@@ -21,9 +21,9 @@
         required
       ></v-select>
       <v-container class="champ-form">
-      <v-file-input  label="File input" filled prepend-icon="mdi-camera"></v-file-input>
+      <v-file-input v-model="file" label="File input" filled prepend-icon="mdi-camera"></v-file-input>
       </v-container>
-      <v-btn @click="importPhoto">click</v-btn>
+      <v-btn type="submit">click</v-btn>
     </v-form>
   </v-main>
 </template>
@@ -35,15 +35,20 @@ export default {
   data: () =>({
     select: null,
     selectSouscategorie: null,
-    sousCategorie: null
+    selectCategorie: null,
+    sousCategorie: null,
+    file: null
   }),
   computed: {
     ...mapState(["categorie"]),
   },
   methods: {
-    ...mapActions(["getCategorie", "importPhoto"]),
+    ...mapActions(["getCategorie"]),
     getSousCategorie(event){
       this.sousCategorie = event;
+    },
+    addPhoto(categ,sousCateg,file){
+      this.$store.dispatch('addPhoto',{categ,sousCateg,file})
     }
   },
   beforeMount() {
