@@ -37,8 +37,7 @@ export default new Vuex.Store({
 
     async getPhotos({commit},data) {
       commit("setIsLoading");
-      const sousCat = await api.getSouscategorieById(data);
-      const photos = sousCat.photos;
+      const photos = await api.getPhotos(data);
       commit("setPhotos", photos );
     },
 
