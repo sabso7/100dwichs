@@ -1,5 +1,6 @@
 <template>
-  <v-toolbar dense flat light>
+<v-container fluid>
+  <v-toolbar dense flat light >
     <v-row>
       <router-link to="/">
         <v-img v-bind="size" id="logo-navbar" lazy-src="@/assets/logos/logo-1.png" src="@/assets/logos/logo-1.png">
@@ -28,14 +29,23 @@
     </div>
     <v-btn v-bind="size" text color="dark" to="/about">à propos</v-btn>
     <v-btn v-bind="size" text color="dark" to="/contact">contact</v-btn>
+    <v-avatar :key="iconbarKey" v-if="isAuth" @click="logout" color="primary" size="56"><v-icon dark>
+        mdi-account-circle
+      </v-icon></v-avatar>
   </v-toolbar>
+</v-container>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
+  data () {
+    return {
+      iconbarKey: 0,
+    };
+  },
   computed: {
-    ...mapState(["categorie", "isLoading"]),
+    ...mapState(["categorie", "isLoading", "isAuth", "token"]),
     size() {
       const size = { xs: "x-small", sm: "small", lg: "large", xl: "x-large" }[
         this.$vuetify.breakpoint.name
@@ -45,6 +55,9 @@ export default {
   },
   methods: {
     ...mapActions(["getCategorie"]),
+    logout() {
+        this.$store.dispatch("logout")
+    }
   },
   beforeMount() {
     this.getCategorie();

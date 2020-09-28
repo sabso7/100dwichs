@@ -21,8 +21,6 @@ class OnSetApi{
 
     async addPhoto(dataForm) {
 
-      console.log(dataForm);
-
       let formData = new FormData();
 
       formData.append("file", dataForm.file);
@@ -30,7 +28,8 @@ class OnSetApi{
       return await this.api
         .post("/api/photos",formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
           }
         })
         .then(({ data }) => this.updatePhoto(data.id,dataForm.sousCateg.id))
@@ -38,8 +37,6 @@ class OnSetApi{
     }
 
     async updatePhoto(id,idSouscategorie) {
-
-      console.log(idSouscategorie);
       return await this.api
         .put("/api/photos/" + id, {
           'photoSouscategorie': "/api/sous_categories/" + idSouscategorie
@@ -52,6 +49,21 @@ class OnSetApi{
       return await this.api
         .get("/api/sous_categories/" + id)
         .then(({ data }) => data.photos)
+        .catch(error => console.log(error));
+    }
+
+    async login(userData) {
+      return await this.api
+        .post("/authentication_token",
+          {
+            'email': userData.emailInput,
+            'password': userData.passwordInput
+          },{
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        .then(({ data }) => localStorage.setItem('user-token', data.token),localStorage.setItem('is-auth', true))
         .catch(error => console.log(error));
     }
 

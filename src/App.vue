@@ -1,10 +1,10 @@
 <template>
   <v-app id="app-body">
     <v-container>
-      <menus></menus>
+      <menus :key="menuKey"></menus>
     </v-container>
    
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     
     <v-container id="footer">
        <v-footer color="grey" absolute>
@@ -19,8 +19,16 @@
 <script>
 import Menus from "./components/Menus.vue";
 export default {
+  data () {
+    return {
+      menuKey: 0,
+    };
+  },
   name: "App",
-  components: { Menus }
+  components: { Menus },
+  beforeMount() {
+    this.menuKey += 1
+  },
 };
 </script>
 

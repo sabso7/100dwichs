@@ -9,7 +9,9 @@ export default new Vuex.Store({
     categorie: null,
     isLoading: false,
     photos: null,
-    addPhoto: null
+    addPhoto: null,
+    token: localStorage.getItem('user-token') || '',
+    isAuth: localStorage.getItem('is-auth') || false
   },
   mutations: {
     setCategorie(state, categorie){
@@ -27,6 +29,10 @@ export default new Vuex.Store({
       state.addPhoto = addPhoto;
       state.isLoading = false;
     },
+    setAuth(state,value){
+      state.isAuth = value;
+      state.isLoading = false;
+    }
   },
   actions: {
     async getCategorie({commit}) {
@@ -43,7 +49,20 @@ export default new Vuex.Store({
 
     async addPhoto({commit},data) {
       const addPhoto = await api.addPhoto(data);
-      commit("setAddPhoto",addPhoto)
+      commit("setAddPhoto",addPhoto);
+    },
+
+    async login({commit},data) {
+      commit("setIsLoading");
+      await api.login(data);
+      commit("setAuth",localStorage.getItem('is-auth'));
+    },
+
+    async logout({commit}){
+      commit("setIsLoading");
+      localStorage.removeItem('user-token');
+      localStorage.removeItem('is-auth');
+      commit("setAuth",localStorage.getItem('is-auth'));
     }
 
   },

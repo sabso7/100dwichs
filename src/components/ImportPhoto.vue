@@ -6,7 +6,7 @@
       </v-btn>
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
-          <v-card-title class="headline"> Ajouter une photo:</v-card-title>
+          <v-card-title class="headline"></v-card-title>
           <v-card-text>
             <v-form
               @submit.prevent="

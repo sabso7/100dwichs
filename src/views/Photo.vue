@@ -10,7 +10,7 @@
     <description></description>
 
     <v-container>
-     <import-photo></import-photo>
+     <import-photo v-if="isAuth"></import-photo>
     </v-container>
     <gallerie></gallerie>
     
@@ -21,7 +21,11 @@
 import Description from "../components/DescriptionGallerie.vue";
 import ImportPhoto from "../components/ImportPhoto.vue";
 import Gallerie from "../components/Gallerie.vue";
+import { mapState} from "vuex";
 export default {
+  computed: {
+    ...mapState(["isAuth", "token"])
+  },
   data() {
     return {
       dialog: false,
