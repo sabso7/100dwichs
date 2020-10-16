@@ -10,9 +10,11 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "masonry-layout": "^4.2.2",
     "roboto-fontface": "*",
     "vee-validate": "^3.4.0",
     "vue": "^2.6.11",
+    "vue-flex-waterfall": "^1.0.7",
     "vue-mq": "^1.0.1",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",

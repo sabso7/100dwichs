@@ -10,10 +10,10 @@
           <v-card-text>
             <v-form
               @submit.prevent="
-                addPhoto(selectCategorie, selectSouscategorie, file)
+                addPhoto($route.params.id,file)
               "
             >
-              <v-select
+              <!-- <v-select
                 class="champ-form"
                 v-model="selectCategorie"
                 :items="categorie"
@@ -32,7 +32,7 @@
                 item-text="nomSouscategorie"
                 return-object
                 required
-              ></v-select>
+              ></v-select> -->
               <v-container class="champ-form">
                 <v-file-input
                   v-model="file"
@@ -70,12 +70,16 @@ export default {
     ...mapState(["categorie"]),
   },
   methods: {
-    ...mapActions(["getCategorie"]),
+    ...mapActions(["getCategorie", "getPhotos"]),
     getSousCategorie(event) {
       this.sousCategorie = event;
     },
-    addPhoto(categ, sousCateg, file) {
-      this.$store.dispatch("addPhoto", { categ, sousCateg, file });
+    addPhoto(sousCateg, file) {
+      this.$store.dispatch("addPhoto", { sousCateg, file }).then(
+        () => {
+          this.getPhotos(this.$route.params.id);
+        }
+      );
     },
   },
   beforeMount() {

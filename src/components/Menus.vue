@@ -3,13 +3,13 @@
   <v-toolbar dense flat light >
     <v-row>
       <router-link to="/">
-        <v-img v-bind="size" id="logo-navbar" lazy-src="@/assets/logos/logo-1.png" src="@/assets/logos/logo-1.png">
+        <v-img transition="slide-x-transition" v-bind="size" id="logo-navbar" src="@/assets/logos/logo-1.png">
         </v-img>
       </router-link>
     </v-row>
     <v-progress-circular v-if="isLoading == true"  indeterminate color="blue"></v-progress-circular>
     <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-      <v-menu v-if="cat.sousCategories.length" open-on-hover offset-y>
+      <v-menu transition="slide-x-reverse-transition" v-if="cat.sousCategories.length" open-on-hover offset-y>
         <template v-slot:activator="{ on }">
           <v-btn text color="dark" v-bind="size" v-on="on">{{cat.nomCategorie}}</v-btn>
         </template>
@@ -29,9 +29,12 @@
     </div>
     <v-btn v-bind="size" text color="dark" to="/about">à propos</v-btn>
     <v-btn v-bind="size" text color="dark" to="/contact">contact</v-btn>
-    <v-avatar :key="iconbarKey" v-if="isAuth" @click="logout" color="primary" size="56"><v-icon dark>
+    <router-link to="/">
+    <v-avatar :key="iconbarKey" v-if="isAuth" @click="logout" color="indigo" v-bind:size="sizeAvatar()"><v-icon dark>
         mdi-account-circle
-      </v-icon></v-avatar>
+      </v-icon>
+    </v-avatar>
+    </router-link>
   </v-toolbar>
 </v-container>
 </template>
@@ -57,7 +60,13 @@ export default {
     ...mapActions(["getCategorie"]),
     logout() {
         this.$store.dispatch("logout")
-    }
+    },
+    sizeAvatar() {
+      const size = { xs: "26", sm: "36", lg: "48", xl: "62" }[
+        this.$vuetify.breakpoint.name
+      ];
+      return size ? size : "";
+    },
   },
   beforeMount() {
     this.getCategorie();

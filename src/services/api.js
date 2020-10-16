@@ -32,7 +32,7 @@ class OnSetApi{
             'Authorization': 'Bearer ' + localStorage.getItem('user-token')
           }
         })
-        .then(({ data }) => this.updatePhoto(data.id,dataForm.sousCateg.id))
+        .then(({ data }) => this.updatePhoto(data.id,dataForm.sousCateg))
         .catch(error => console.log(error));
     }
 

@@ -12,7 +12,7 @@
                     </v-row>
       </template>
       </v-img>
-      <v-img id="title-home-img" src="@/assets/logos/logo-3.png">
+      <v-img transition="slide-x-transition" id="title-home-img" src="@/assets/logos/logo-3.png">
       </v-img>
     </v-container>
     <v-divider inset></v-divider>

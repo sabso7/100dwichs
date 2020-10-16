@@ -48,8 +48,8 @@ export default new Vuex.Store({
     },
 
     async addPhoto({commit},data) {
-      const addPhoto = await api.addPhoto(data);
-      commit("setAddPhoto",addPhoto);
+      commit("setIsLoading");
+      await api.addPhoto(data);
     },
 
     async login({commit},data) {
