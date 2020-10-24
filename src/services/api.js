@@ -2,7 +2,7 @@ import axios from "axios";
 
 class OnSetApi{
     constructor() {
-        const baseURL = "https://127.0.0.1:8000"; // https://api.onset-rp.com/
+        const baseURL = "https://dodie-api.site"; // https://api.onset-rp.com/
         this.api = axios.create({
           baseURL,
           timeout: 6000,
