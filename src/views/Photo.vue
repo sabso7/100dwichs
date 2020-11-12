@@ -7,8 +7,6 @@
 
     <v-divider inset></v-divider>
 
-    <description></description>
-
     <v-container>
      <import-photo v-if="isAuth"></import-photo>
     </v-container>
@@ -18,7 +16,6 @@
 </template>
 
 <script>
-import Description from "../components/DescriptionGallerie.vue";
 import ImportPhoto from "../components/ImportPhoto.vue";
 import Gallerie from "../components/Gallerie.vue";
 import { mapState} from "vuex";
@@ -31,7 +28,7 @@ export default {
       dialog: false,
     };
   },
-  components: { Description, ImportPhoto, Gallerie },
+  components: { ImportPhoto, Gallerie },
   methods: {
     
   }

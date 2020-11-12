@@ -54,7 +54,7 @@ class OnSetApi{
 
     async login(userData) {
       return await this.api
-        .post("/api/authentication_token",
+        .post("/authentication_token",
           {
             'email': userData.emailInput,
             'password': userData.passwordInput

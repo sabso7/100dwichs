@@ -1,7 +1,6 @@
 <template>
   <validation-observer
     ref="observer"
-    v-slot=""
   >
     <form>
       <validation-provider
@@ -74,6 +73,7 @@
         const emailInput = this.email;
         const passwordInput = this.password;
         this.$store.dispatch("login", { emailInput, passwordInput }).then(
+          
             () => {
                 this.$router.push('/')
             }
