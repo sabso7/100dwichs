@@ -1,16 +1,9 @@
 <template>
   <v-main>
 
-    <v-row justify="center" class="title">
-      <h1 class="font-weight-light">{{ $route.params.name }}</h1>
-    </v-row>
-
-    <v-divider inset></v-divider>
-
-    <v-container>
-     <import-photo v-if="isAuth"></import-photo>
-    </v-container>
+    <import-photo v-if="isAuth"></import-photo>
     <gallerie></gallerie>
+   
     
   </v-main>
 </template>
@@ -39,5 +32,11 @@ export default {
 <style>
 .title {
   padding-top: 5%;
+}
+.block-gallery {
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  width: 100%;
 }
 </style>

@@ -3,8 +3,9 @@
     <v-container>
       <menus :key="menuKey"></menus>
     </v-container>
-   
+    <v-container id="block-gallery">
       <router-view :key="$route.fullPath"></router-view>
+    </v-container>
     
     <v-container id="footer">
        <v-footer color="grey" absolute>
@@ -33,6 +34,14 @@ export default {
 </script>
 
 <style>
+
+.block-gallery {
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}
 
   #footer{
       padding-top: 10%;

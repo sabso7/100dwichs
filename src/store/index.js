@@ -10,6 +10,7 @@ export default new Vuex.Store({
     isLoading: false,
     photos: null,
     addPhoto: null,
+    imgsArr: [],
     token: localStorage.getItem('user-token') || '',
     isAuth: localStorage.getItem('is-auth') || false
   },
@@ -23,6 +24,17 @@ export default new Vuex.Store({
     },
     setPhotos(state, photos){
       state.photos = photos;
+      photos.forEach(function(value){
+        state.imgsArr.push(
+          {
+            "src": "https://dodie-api.site/photos/" + value.filePath,
+            "href": null,
+            "title": "This is first img title",
+            "info": "First description",
+            "target": "modal"
+          }
+        )
+      })
       state.isLoading = false;
     },
     setAddPhoto(state, addPhoto){

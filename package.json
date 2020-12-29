@@ -15,6 +15,7 @@
     "vee-validate": "^3.4.0",
     "vue": "^2.6.11",
     "vue-flex-waterfall": "^1.0.7",
+    "vue-masonry-gallery": "^1.1.1",
     "vue-mq": "^1.0.1",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",

@@ -1,56 +1,47 @@
 <template>
   <v-main>
-    <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <v-container fluid>
-          <v-row align="center" justify="center">
-            <v-progress-circular
-              v-if="isLoading == true"
-              indeterminate
-              color="blue"
-            ></v-progress-circular>
-          </v-row>
-          <v-row>
-            <v-col
-              v-for="photo in photos"
-              :key="photo.id"
-              class="d-flex child-flex"
-              cols="4"
-            >
-              <v-hover v-slot:default="{ hover }" open-delay="20">
-                <v-card flat tile class="d-flex" :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
-                  <v-img
-                    :src="'https://dodie-api.site/photos/' + photo.filePath"
-                    :lazy-src="
-                      'https://dodie-api.site/photos/' + photo.filePath
-                    "
-                    aspect-ratio="1"
-                    class="grey lighten-2"
-                  >
-                  </v-img>
-                </v-card>
-              </v-hover>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
+    <v-content id="block">
+      <v-row justify="center">
+      <h1 class="font-weight-light">{{ $route.params.name }}</h1>
+      </v-row>
+      <v-divider inset></v-divider>
+    </v-content>
+    <vue-masonry-gallery
+      :imgWidth = 500
+      :maxCols = 6
+      :height = 1000
+      :imgsArr="JSON.parse(JSON.stringify(imgsArr))"
+    ></vue-masonry-gallery> 
   </v-main>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import VueMasonryGallery from "vue-masonry-gallery/vendor/VueMasonryGallery/VueMasonryGallery";
 export default {
+  components: {
+    VueMasonryGallery,
+  },
   computed: {
-    ...mapState(["photos", "isLoading"]),
+    ...mapState(["photos", "isLoading", "imgsArr"]),
   },
   methods: {
     ...mapActions(["getPhotos"]),
   },
-  beforeMount() {
+  created() {
     this.getPhotos(this.$route.params.id);
-  }
+    this.imgsArr = [];
+  },
 };
 </script>
 
-<style></style>
+<style>
+.block {
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  width: 100%;
+}
+
+
+</style>
