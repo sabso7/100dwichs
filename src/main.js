@@ -5,16 +5,16 @@ import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import store from './store'
-import masonry from "masonry-layout";
-
-
+import lightbox from './plugins/lightbox';
+import VueMasonryPlugin from "./plugins/vueMasonry";
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   vuetify,
+  VueMasonryPlugin,
   store,
-  masonry,
+  lightbox,
   render: h => h(App)
 }).$mount('#app')
