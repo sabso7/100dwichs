@@ -5,7 +5,7 @@ class OnSetApi{
         const baseURL = "https://dodie-api.site"; // https://api.onset-rp.com/
         this.api = axios.create({
           baseURL,
-          timeout: 6000,
+          timeout: 15000,
           headers: {
             accept: "application/json"
           }
@@ -33,6 +33,14 @@ class OnSetApi{
           }
         })
         .then(({ data }) => this.updatePhoto(data.id,dataForm.sousCateg))
+        .catch(error =>{
+          console.log(error);
+        })
+    }
+
+    async deletePhoto(id) {
+      return await this.api
+        .delete("/api/photos/" + id)
         .catch(error => console.log(error));
     }
 
@@ -63,10 +71,14 @@ class OnSetApi{
               'Content-Type': 'application/json'
             }
           })
-        .then(({ data }) => localStorage.setItem('user-token', data.token),localStorage.setItem('is-auth', true))
-        .catch(error => console.log(error));
-    }
+        .then(({ data }) => {
 
+          if(data.token){
+            localStorage.setItem('user-token', data.token),localStorage.setItem('is-auth', true)
+          }
+        })
+        .catch(error =>{ return error});
+    }
 }
 
 const api = new OnSetApi();

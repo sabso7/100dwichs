@@ -3,6 +3,12 @@
     ref="observer"
   >
     <form>
+      <v-alert
+      dense
+      outlined
+      type="error"
+      v-if="errors !== null"
+    >{{ errors }} </v-alert>
       <validation-provider
         v-slot="{ errors }"
         name="email"
@@ -42,9 +48,10 @@
 <script>
   import { required, email } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+  import { mapState, mapActions } from "vuex";
 
   setInteractionMode('eager')
-
+ 
   extend('required', {
     ...required,
     message: '{_field_} can not be empty',
@@ -65,19 +72,26 @@
       email: '',
       select: null,
       errors: null,
-    }),
 
+    }),
+    computed: {
+      ...mapState(["isAuth"]),
+    },
     methods: {
+      ...mapActions(["login", "logout"]),
       submit () {
         this.$refs.observer.validate();
         const emailInput = this.email;
         const passwordInput = this.password;
-        this.$store.dispatch("login", { emailInput, passwordInput }).then(
-          
-            () => {
-                this.$router.push('/')
-            }
-        );
+        this.logout();
+        this.login({emailInput,passwordInput}).then(() => {
+          if (localStorage.getItem('is-auth')) {
+            this.errors = null;
+            this.$router.push('/');
+          }else{
+            this.errors = "Bad id !!!!";
+          }
+        });
       }
     },
   }

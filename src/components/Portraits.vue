@@ -13,12 +13,8 @@
           </div>
         </v-col>
         <v-col cols="6" md="4">
-          <v-card id="carousel-card" class="d-inline-block mx-auto">
-            <v-carousel hide-delimiters show-arrows-on-hover>
-              <v-carousel-item>
+          <v-card class="d-inline-block mx-auto">
                 <v-img contain class="img-carousel" src="@/assets/img/thailand-1.jpg"></v-img>
-              </v-carousel-item>
-            </v-carousel>
           </v-card>
         </v-col>
       </v-row>

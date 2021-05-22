@@ -17,12 +17,13 @@
     </v-container>
     <v-divider inset></v-divider>
     <v-container class="home-block">
-      <about></about>
+      <reportages id="Reportages"></reportages>
+      <v-divider inset></v-divider>
+      <portraits id="Portraits"></portraits>
+      <v-divider inset></v-divider>
+      <about id="content_about"></about>
       <v-divider inset></v-divider>
     </v-container>
-    <reportages></reportages>
-    <v-divider inset></v-divider>
-    <portraits></portraits>
     <v-row justify="center">
     <v-icon v-on:click="scrollToTop" class="icon">mdi-arrow-expand-up</v-icon>
     </v-row>
@@ -61,10 +62,6 @@ html {
   }
 }
 
-#home {
-  
-}
-
 .blocktext {
   margin: 5%;
 }
@@ -89,7 +86,7 @@ html {
 
 #title-home-img {
   position: absolute;
-  top: 20vh;
+  top: 15vh;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 500px;
@@ -102,6 +99,10 @@ html {
 
 .btn-galerie{
   margin-top: 20px;
+}
+
+#home-banner-title{
+  margin-bottom: 120px;
 }
 
 </style>

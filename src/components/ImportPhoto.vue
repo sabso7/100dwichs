@@ -1,5 +1,13 @@
 <template>
   <v-main>
+    <v-alert
+      dense
+      outlined
+      type="error"
+      v-if="error !== null"
+    >
+      {{error}}
+    </v-alert>
     <v-row justify="center">
       <v-btn color="blue" dark @click.stop="dialog = true">
         <v-icon class="icon">mdi-image-plus</v-icon>
@@ -13,26 +21,6 @@
                 addPhoto($route.params.id,file)
               "
             >
-              <!-- <v-select
-                class="champ-form"
-                v-model="selectCategorie"
-                :items="categorie"
-                label="Menu"
-                item-text="nomCategorie"
-                return-object
-                required
-                @input="getSousCategorie"
-              ></v-select>
-              <v-select
-                v-if="sousCategorie"
-                class="champ-form"
-                v-model="selectSouscategorie"
-                :items="sousCategorie.sousCategories"
-                label="SousMenu"
-                item-text="nomSouscategorie"
-                return-object
-                required
-              ></v-select> -->
               <v-container class="champ-form">
                 <v-file-input
                   v-model="file"
@@ -56,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapMutations, mapActions, mapState } from "vuex";
 export default {
   data: () => ({
     select: null,
@@ -67,20 +55,18 @@ export default {
     dialog: null,
   }),
   computed: {
-    ...mapState(["categorie"]),
+    ...mapState(["categorie","error","refresh"]),
   },
   methods: {
     ...mapActions(["getCategorie", "getPhotos"]),
+    ...mapMutations(["setIsLoading"]),
     getSousCategorie(event) {
       this.sousCategorie = event;
     },
     addPhoto(sousCateg, file) {
-      this.$store.dispatch("addPhoto", { sousCateg, file }).then(
-        () => {
-          this.getPhotos(this.$route.params.id);
-        }
-      );
-    },
+      this.setIsLoading;
+      this.$store.dispatch("addPhoto", { sousCateg, file });
+    }
   },
   beforeMount() {
     this.getCategorie();

@@ -3,24 +3,8 @@
        <v-container class="home-block">
       <v-row>
         <v-col cols="6" md="4">
-          <v-card id="carousel-card" class="d-inline-block mx-auto">
-            <v-carousel hide-delimiters show-arrows-on-hover>
-              <v-carousel-item>
+          <v-card class="d-inline-block mx-auto">
                 <v-img contain class="img-carousel" lazy-src="@/assets/img/canada-2.jpg" src="@/assets/img/canada-2.jpg"></v-img>
-              </v-carousel-item>
-              <v-carousel-item>
-                <v-img contain class="img-carousel" lazy-src="@/assets/img/canada-3.jpg" src="@/assets/img/canada-3.jpg"></v-img>
-              </v-carousel-item>
-              <v-carousel-item>
-                <v-img contain class="img-carousel" lazy-src="@/assets/img/canada-4.jpg" src="@/assets/img/canada-4.jpg"></v-img>
-              </v-carousel-item>
-              <v-carousel-item>
-                <v-img contain class="img-carousel" lazy-src="@/assets/img/canada-5.jpg" src="@/assets/img/canada-5.jpg"></v-img>
-              </v-carousel-item>
-              <v-carousel-item>
-                <v-img contain class="img-carousel" lazy-src="@/assets/img/canada-6.jpg" src="@/assets/img/canada-6.jpg"></v-img>
-              </v-carousel-item>
-            </v-carousel>
           </v-card>
         </v-col>
         <v-col cols="12" md="8">

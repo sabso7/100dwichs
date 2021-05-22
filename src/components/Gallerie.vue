@@ -1,40 +1,55 @@
 <template>
   <v-main>
-    <v-content id="block">
+    <v-main id="block">
       <v-row justify="center">
-      <h1 class="font-weight-light">{{ $route.params.name }}</h1>
+      <h1 class="font-weight-light" id="title-gallery">{{ $route.params.name }}</h1>
       </v-row>
       <v-divider inset></v-divider>
-    </v-content>
+    </v-main>
     <v-container>
-    <masonry
-      :gutter="{ default: '20px', 700: '10px' }"
-      :cols="{ default: 2, 1000: 2, 700: 2, 500: 1 }"
-    >
-      <v-card
-        v-for="item in JSON.parse(JSON.stringify(imgsArr))"
-        :key="item.id"
-        class="mt-2 mb-2"
-        color="blue lighten-3"
+      <import-photo v-if="isAuth"></import-photo>
+      <v-row justify="center">
+        <v-progress-circular v-if="isLoading == true"  indeterminate color="blue"></v-progress-circular>
+      </v-row>
+      <masonry
+        :gutter="{ default: '20px', 700: '10px' }"
+        :cols="{ default: 2, 1000: 2, 700: 2, 500: 1 }"
       >
-        <v-img :src="item.src"></v-img>
-      </v-card>
-    </masonry>
+        <v-card
+          v-for="item in JSON.parse(JSON.stringify(imgsArr))"
+          :key="item.id"
+          class="mt-2 mb-2"
+          outlined 
+          color="transparent"
+        >
+        <v-main>
+          <v-row justify="center" >
+          <v-btn id="delete-btn" v-if="isAuth" v-on:click="clickDeletePhoto(item.id)">
+            <v-icon class="icon">mdi-delete</v-icon>
+          </v-btn>
+          </v-row>
+        </v-main>
+          <v-img :src="item.src" lazy-src="https://picsum.photos/id/11/100/60"></v-img>
+        </v-card>
+      </masonry>
   </v-container>
   </v-main>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import ImportPhoto from "../components/ImportPhoto.vue";
 
 export default {
-  components: {
-  },
+  components: { ImportPhoto },
   computed: {
-    ...mapState(["photos", "isLoading", "imgsArr"]),
+    ...mapState(["isAuth","photos", "isLoading", "imgsArr"]),
   },
   methods: {
-    ...mapActions(["getPhotos"]),
+    ...mapActions(["getPhotos", "deletePhoto"]),
+    clickDeletePhoto: function(idPhoto){
+      this.deletePhoto(idPhoto).then(this.$forceUpdate());
+    }
   },
   created() {
     this.getPhotos(this.$route.params.id);
@@ -49,6 +64,12 @@ export default {
   top: 80px;
   bottom: 0;
   width: 100%;
+}
+#delete-btn{
+  margin: 5%;
+}
+#title-gallery{
+    text-transform: capitalize;
 }
 
 </style>

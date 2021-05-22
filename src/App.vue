@@ -6,11 +6,23 @@
     <v-container id="block-gallery">
       <router-view :key="$route.fullPath"></router-view>
     </v-container>
-    
     <v-container id="footer">
+      <v-container id="logos-footer">
+        <v-row justify="center">
+          <span class="logo-footer"><v-btn icon href="https://www.instagram.com/elodiebolatto/?hl=fr" target="_blank"> <v-icon x-large class="icon">mdi-instagram</v-icon></v-btn></span>
+          <span class="logo-footer"><v-btn icon href="https://www.facebook.com/elodiebolattophotographie" target="_blank"> <v-icon x-large class="icon">mdi-facebook</v-icon> </v-btn></span>
+        </v-row>
+      </v-container>
        <v-footer color="grey" absolute>
          <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
          <v-spacer></v-spacer>
+         <router-link to="/">
+          <v-avatar v-if="isAuth" @click="logout" color="grey">
+            <v-icon dark>
+              mdi-account-circle
+            </v-icon>
+          </v-avatar>
+         </router-link>
          <router-link to="/backoffice"><v-icon>mdi-lock</v-icon></router-link>
        </v-footer>
     </v-container>
@@ -19,14 +31,23 @@
 
 <script>
 import Menus from "./components/Menus.vue";
+import { mapState } from "vuex";
 export default {
   data () {
     return {
       menuKey: 0,
     };
   },
+  computed: {
+    ...mapState(["isAuth"]),
+  },
   name: "App",
   components: { Menus },
+  methods: {
+    logout() {
+        this.$store.dispatch("logout")
+    },
+  },
   beforeMount() {
     this.menuKey += 1
   },
@@ -44,12 +65,18 @@ export default {
 }
 
   #footer{
-      padding-top: 10%;
+      padding-top: 5%;
+  }
+
+  #logos-footer{
+     margin-bottom: 5%;
+     justify-content: space-between;
+  }
+
+  .logo-footer{
+     padding: 20px;
   }
 
   ::-webkit-scrollbar {display:none;};
 
-  @media screen {
-    
-  }
 </style>

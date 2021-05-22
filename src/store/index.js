@@ -12,7 +12,9 @@ export default new Vuex.Store({
     addPhoto: null,
     imgsArr: [],
     token: localStorage.getItem('user-token') || '',
-    isAuth: localStorage.getItem('is-auth') || false
+    isAuth: localStorage.getItem('is-auth') || false,
+    error: null,
+    refresh: 0
   },
   mutations: {
     setCategorie(state, categorie){
@@ -22,10 +24,12 @@ export default new Vuex.Store({
     setIsLoading(state) {
       state.isLoading = true;
     },
+    setOffLoading(state){
+      state.isLoading = false;
+    },
     setPhotos(state, photos){
       state.photos = photos;
       photos.forEach(function(value){
-        
         state.imgsArr.push(
           {
             "src": "https://dodie-api.site/photos/" + value.filePath,
@@ -43,6 +47,13 @@ export default new Vuex.Store({
     setAuth(state,value){
       state.isAuth = value;
       state.isLoading = false;
+    },
+    setError(state,value){
+      state.error = value;
+      state.isLoading = false;
+    },
+    refresh(state){
+      state.refresh += 1;
     }
   },
   actions: {
@@ -59,13 +70,20 @@ export default new Vuex.Store({
     },
 
     async addPhoto({commit},data) {
-      commit("setIsLoading");
-      await api.addPhoto(data);
+      if(data.file.size > (8000000)){
+        commit("setError", 'Fichier trop volumineux !');
+      }else{
+        commit("setError", null);
+        let responseApi = await api.addPhoto(data);
+        console.log(responseApi);
+      }
+      commit("refresh");
     },
 
     async login({commit},data) {
       commit("setIsLoading");
-      await api.login(data);
+      let responseApi = await api.login(data);
+      console.log(responseApi);
       commit("setAuth",localStorage.getItem('is-auth'));
     },
 
@@ -74,7 +92,14 @@ export default new Vuex.Store({
       localStorage.removeItem('user-token');
       localStorage.removeItem('is-auth');
       commit("setAuth",localStorage.getItem('is-auth'));
-    }
+    },
+
+    async deletePhoto({commit},data) {
+      commit("setIsLoading");
+      await api.deletePhoto(data);
+      commit("refresh");
+      commit("setOffLoading");
+    },
 
   },
   modules: {

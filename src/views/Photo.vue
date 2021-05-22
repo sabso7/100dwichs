@@ -1,31 +1,22 @@
 <template>
   <v-main>
-
-    <import-photo v-if="isAuth"></import-photo>
-    <gallerie></gallerie>
-   
-    
+    <gallerie :key="refresh"></gallerie>
   </v-main>
 </template>
 
 <script>
-import ImportPhoto from "../components/ImportPhoto.vue";
 import Gallerie from "../components/Gallerie.vue";
 import { mapState} from "vuex";
 export default {
   computed: {
-    ...mapState(["isAuth", "token"])
+    ...mapState(["isAuth", "token", "refresh", "isLoading"])
   },
   data() {
     return {
       dialog: false,
     };
   },
-  components: { ImportPhoto, Gallerie },
-  methods: {
-    
-  }
-  
+  components: { Gallerie }, 
 };
 </script>
 

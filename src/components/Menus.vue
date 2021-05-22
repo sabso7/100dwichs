@@ -1,40 +1,28 @@
 <template>
 <v-container fluid>
   <v-toolbar dense flat light >
-    <v-row>
-      <router-link to="/">
-        <v-img transition="slide-x-transition" v-bind="size" id="logo-navbar" src="@/assets/logos/logo-1.png">
+      <router-link v-bind="size" to="/">
+        <v-img transition="slide-x-transition" id="logo-navbar" src="@/assets/logos/logo-1.png">
         </v-img>
       </router-link>
-    </v-row>
+      <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true"  indeterminate color="blue"></v-progress-circular>
     <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
       <v-menu transition="slide-x-reverse-transition" v-if="cat.sousCategories.length" open-on-hover offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn text color="dark" v-bind="size" v-on="on">{{cat.nomCategorie}}</v-btn>
+          <router-link to="/">
+            <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size" v-on="on">{{cat.nomCategorie}}</v-btn>
+          </router-link>
         </template>
-        <v-list>
-          <v-list-item v-for="(sscat, index) in cat.sousCategories" :key="index">
-            <v-list-item-title class="align-content-center">
-              <v-btn
-                text
-                small
-                color="dark"
-                :to="{ path: '/galerie/' + sscat.nomSouscategorie + '/' + sscat.id }"
-              >{{ sscat.nomSouscategorie }}</v-btn>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
       </v-menu>
     </div>
-    <v-btn v-bind="size" text color="dark" to="/about">à propos</v-btn>
-    <v-btn v-bind="size" text color="dark" to="/contact">contact</v-btn>
     <router-link to="/">
-    <v-avatar :key="iconbarKey" v-if="isAuth" @click="logout" color="indigo" v-bind:size="sizeAvatar()"><v-icon dark>
-        mdi-account-circle
-      </v-icon>
-    </v-avatar>
+      <v-btn  @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
     </router-link>
+    <router-link to="/">
+    <v-btn  @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
+    </router-link>
+    <v-spacer></v-spacer>
   </v-toolbar>
 </v-container>
 </template>
@@ -58,15 +46,11 @@ export default {
   },
   methods: {
     ...mapActions(["getCategorie"]),
-    logout() {
-        this.$store.dispatch("logout")
-    },
-    sizeAvatar() {
-      const size = { xs: "26", sm: "36", lg: "48", xl: "62" }[
-        this.$vuetify.breakpoint.name
-      ];
-      return size ? size : "";
-    },
+    scroll: function(id) {  
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+    });
+  }
   },
   beforeMount() {
     this.getCategorie();

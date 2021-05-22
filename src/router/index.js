@@ -11,6 +11,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { scrollToTop: true }
   },
   {
     path: '/galerie/:name/:id',
