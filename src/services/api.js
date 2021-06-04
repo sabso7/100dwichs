@@ -5,7 +5,7 @@ class OnSetApi{
         const baseURL = "https://dodie-api.site"; // https://api.onset-rp.com/
         this.api = axios.create({
           baseURL,
-          timeout: 15000,
+          timeout: 100000,
           headers: {
             accept: "application/json"
           }
@@ -78,6 +78,28 @@ class OnSetApi{
           }
         })
         .catch(error =>{ return error});
+    }
+
+    async createSousCateg(data) {
+      return await this.api
+        .post("/api/sous_categories",
+          {
+            nomSouscategorie: data.nomSousCateg,
+            typeCategorie: data.categorie,
+          },{
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        .then(({ data }) => {data})
+        .catch(error =>{ return error});
+    }
+
+    async deleteSousCateg(id) {
+      console.log(id);
+      return await this.api
+        .delete("/api/sous_categories/" + id.idSousCateg)
+        .catch(error => console.log(error));
     }
 }
 

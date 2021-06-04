@@ -1,34 +1,113 @@
 <template>
-  <v-main>
-       <v-container class="home-block">
-      <v-row>
-        <v-col cols="6" md="4">
-          <v-card class="d-inline-block mx-auto">
-                <v-img contain class="img-carousel" lazy-src="@/assets/img/canada-2.jpg" src="@/assets/img/canada-2.jpg"></v-img>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="8">
-          <div class="blocktext">
-            <h2>Reportages</h2>
-            <blockquote class="blockquote">
-Mes photos reflètent mes expériences vécues, à la rencontre des locaux.
-En m’imprégnant des cultures et modes de vie, je capte les détails, l'atmosphère et les émotions.
-Je souhaite faire partager et témoigner de ces expériences uniques avec vous.
-            </blockquote>
-            <v-row justify="center"><v-btn class="btn-galerie" color="dark">Galerie</v-btn></v-row>
-          </div>
-        </v-col>
-      </v-row>
+<v-main>
+    <v-container class="home-block">
+        <v-row justify="center">
+            <section id="paragraphs">
+                <v-row justify="center">
+                    <div style="padding:20px" class="overline text-h5 text-sm-h5 mb-4">Reportages</div>
+                </v-row>
+                <v-row>
+                    <p class="font-weight-light text-home-page">Mes photos reflètent mes expériences vécues, à la rencontre des locaux.En m’imprégnant des cultures et modes de vie, je capte les détails, l'atmosphère et les émotions. Je souhaite faire partager et témoigner de ces expériences uniques avec vous.</p>
+                </v-row>
+            </section>
+            <v-col cols="12" md="8">
+                <v-row>
+                    <v-col v-for="imgReport in arrayImgReport" v-bind:key="imgReport.nomSousCateg" class="d-flex child-flex" cols="3">
+                        <v-row v-if="imgReport.photo">
+                            <v-hover v-slot="{ hover }">
+                                <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                                    <v-img :src="imgReport.photo" :lazy-src="imgReport.photo" aspect-ratio="0" class="grey lighten-2">
+                                        <template v-slot:placeholder>
+                                            <v-row justify="center">
+                                                <v-progress-circular indeterminate color="black"></v-progress-circular>
+                                            </v-row>
+                                        </template>
+                                        <v-row class="block_btn_img_home" align="center" justify="space-around">
+                                            <v-btn :to="'/galerie/'+imgReport.nomSousCateg+'/'+imgReport.id" :class="{ 'show-btns': hover }" :color="transparent" text>
+                                                <h2>{{imgReport.nomSousCateg}}</h2>
+                                            </v-btn>
+                                        </v-row>
+                                    </v-img>
+                                </v-card>
+                            </v-hover>
+                        </v-row>
+                        <v-row v-else>
+                            <v-hover v-slot="{ hover }">
+                                <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                                    <v-img src="@/assets/img/no_image.jpeg" lazy-src="@/assets/img/no_image.jpeg" aspect-ratio="0" class="grey lighten-2">
+                                        <template v-slot:placeholder>
+                                            <v-row justify="center">
+                                                <v-progress-circular indeterminate color="black"></v-progress-circular>
+                                            </v-row>
+                                        </template>
+                                        <v-row class="block_btn_img_home" align="center" justify="space-around">
+                                            <v-btn :to="'/galerie/'+imgReport.nomSousCateg+'/'+imgReport.id" :class="{ 'show-btns': hover }" color="black" text>
+                                                <h2>{{imgReport.nomSousCateg}}</h2>
+                                            </v-btn>
+                                        </v-row>
+                                    </v-img>
+                                </v-card>
+                            </v-hover>
+                        </v-row>
+                        <delete-sous-categ :idSousCateg="imgReport.id"></delete-sous-categ>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+        <v-row v-if="isAuth" justify="center">
+            <create-sous-categ categorie="/api/categories/3"></create-sous-categ>
+        </v-row>
     </v-container>
-  </v-main>
+</v-main>
 </template>
 
 <script>
+import {
+    mapState,
+    mapActions,
+} from "vuex";
+import CreateSousCateg from './CreateSousCateg.vue';
+import DeleteSousCateg from './DeleteSousCateg.vue';
 export default {
-
+    components: {
+        CreateSousCateg,
+        DeleteSousCateg
+    },
+    data() {
+        return {
+            transparent: 'rgba(0, 0, 0, 0)',
+        }
+    },
+    computed: {
+        ...mapState(["categorie", "arrayImgReport", "isAuth"]),
+    },
+    methods: {
+        ...mapActions(["getPhotosHomePage"]),
+    },
+    mounted: function () {
+        this.$store.subscribe((mutation) => {
+            if (mutation.type === 'setCategorie' && this.$route.name === 'Home' && this.arrayImgReport.length === 0) {
+                this.getPhotosHomePage(this.categorie);
+            }
+        })
+    }
 }
 </script>
 
 <style scoped>
+.v-card {
+    transition: opacity .4s ease-in-out;
+}
 
+.v-card:not(.on-hover) {
+    opacity: 0.6;
+}
+
+.show-btns {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+.block_btn_img_home {
+    margin-top: 100px;
+}
 </style>

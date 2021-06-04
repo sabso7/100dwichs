@@ -14,7 +14,9 @@ export default new Vuex.Store({
     token: localStorage.getItem('user-token') || '',
     isAuth: localStorage.getItem('is-auth') || false,
     error: null,
-    refresh: 0
+    refresh: 0,
+    arrayImgReport: [],
+    arrayImgPort: []
   },
   mutations: {
     setCategorie(state, categorie){
@@ -34,7 +36,7 @@ export default new Vuex.Store({
           {
             "src": "https://dodie-api.site/photos/" + value.filePath,
             "title": "This is first img title",
-            "id": value.id
+            "id": value.id,
           }
         )
       })
@@ -52,9 +54,12 @@ export default new Vuex.Store({
       state.error = value;
       state.isLoading = false;
     },
+    setImgHome(state,{img,nomCategorie}){
+      (nomCategorie === 'Reportages') ? state.arrayImgReport.push(img):state.arrayImgPort.push(img);
+    },
     refresh(state){
       state.refresh += 1;
-    }
+    },
   },
   actions: {
     async getCategorie({commit}) {
@@ -66,7 +71,7 @@ export default new Vuex.Store({
     async getPhotos({commit},data) {
       commit("setIsLoading");
       const photos = await api.getPhotos(data);
-      commit("setPhotos", photos );
+      commit("setPhotos", photos);
     },
 
     async addPhoto({commit},data) {
@@ -74,16 +79,14 @@ export default new Vuex.Store({
         commit("setError", 'Fichier trop volumineux !');
       }else{
         commit("setError", null);
-        let responseApi = await api.addPhoto(data);
-        console.log(responseApi);
+        await api.addPhoto(data);
       }
       commit("refresh");
     },
 
     async login({commit},data) {
       commit("setIsLoading");
-      let responseApi = await api.login(data);
-      console.log(responseApi);
+      await api.login(data);
       commit("setAuth",localStorage.getItem('is-auth'));
     },
 
@@ -98,6 +101,36 @@ export default new Vuex.Store({
       commit("setIsLoading");
       await api.deletePhoto(data);
       commit("refresh");
+      commit("setOffLoading");
+    },
+
+    async getPhotosHomePage({commit},categorie) {
+      categorie.forEach(element1 => {
+            element1.sousCategories.forEach(element2 => {
+                let photos = (!element2.photos.length) ? null : "https://dodie-api.site/photos/" + element2.photos[0].filePath
+                let img = {
+                  "nomSousCateg": element2.nomSouscategorie,
+                  "photo": photos,
+                  "id": element2.id
+                }
+                let nomCategorie = element1.nomCategorie;
+                commit("setImgHome", {img,nomCategorie});
+            });
+      });
+    },
+
+    async createSousCateg({commit},data) {
+      commit("setIsLoading");
+      await api.createSousCateg(data);
+      commit("setOffLoading");
+      commit("refresh");
+    },
+
+    async deleteSousCateg({commit},data) {
+      commit("setIsLoading");
+      await api.deleteSousCateg(data).then(() => {
+        commit("refresh");
+      });
       commit("setOffLoading");
     },
 
