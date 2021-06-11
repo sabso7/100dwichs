@@ -24,7 +24,8 @@ class OnSetApi{
       let formData = new FormData();
 
       formData.append("file", dataForm.file);
-
+      formData.append("description", dataForm.description);
+      
       return await this.api
         .post("/api/photos",formData, {
           headers: {
@@ -40,7 +41,12 @@ class OnSetApi{
 
     async deletePhoto(id) {
       return await this.api
-        .delete("/api/photos/" + id)
+        .delete("/api/photos/" + id,{
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
+        })
         .catch(error => console.log(error));
     }
 
@@ -48,6 +54,11 @@ class OnSetApi{
       return await this.api
         .put("/api/photos/" + id, {
           'photoSouscategorie': "/api/sous_categories/" + idSouscategorie
+        },{
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
         })
         .then(({ data }) => data)
         .catch(error => console.log(error));
@@ -86,9 +97,11 @@ class OnSetApi{
           {
             nomSouscategorie: data.nomSousCateg,
             typeCategorie: data.categorie,
+            description: data.description
           },{
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('user-token')
             }
           })
         .then(({ data }) => {data})
@@ -96,9 +109,20 @@ class OnSetApi{
     }
 
     async deleteSousCateg(id) {
-      console.log(id);
       return await this.api
-        .delete("/api/sous_categories/" + id.idSousCateg)
+        .delete("/api/sous_categories/" + id.idSousCateg,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
+        })  
+        .catch(error => console.log(error));
+    }
+
+    async getSousCategorie(id) {
+      return await this.api
+        .get("/api/sous_categories/" + id)
+        .then(({ data }) => data)
         .catch(error => console.log(error));
     }
 }

@@ -60,11 +60,11 @@ export default {
     methods: {
         ...mapActions(["getCategorie"]),
         scroll: function (id) {
-            document.getElementById(id).scrollTop -= 60;
-            setTimeout(document.getElementById(id).scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            }), 1000);
+            if (this.$route.name === 'Home') {
+                setTimeout(document.getElementById(id).scrollIntoView({
+                    behavior: "smooth",
+                }), 1000);
+            }
         }
     },
     beforeMount() {
@@ -78,10 +78,12 @@ export default {
     max-width: 100px;
     max-height: 50px;
 }
-.v-toolbar__content{
+
+.v-toolbar__content {
     margin-top: 5px;
 }
-.v-toolbar__content{
+
+.v-toolbar__content {
     padding-bottom: 400px;
 }
 </style>

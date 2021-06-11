@@ -6,20 +6,25 @@
                 <v-icon class="icon">mdi-plus</v-icon>
             </v-btn>
         </template>
-
         <v-card>
             <v-card-text>
                 <template>
                     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
                     <validation-observer ref="observer">
-                        <form>
+                        <form id="form_souscateg">
                             <validation-provider v-slot="{ errors }" names="souscateg" rules="required">
                                 <v-text-field v-model="souscateg" :error-messages="errors" label="Sous-Catégorie" required></v-text-field>
                             </validation-provider>
                             <br>
-                            <v-btn justify="center" color="primary" class="mr-4" @click="submit">
-                                Create
-                            </v-btn>
+                            <validation-provider v-slot="{ errors }" names="description" rules="required">
+                                <v-textarea v-model="description" :error-messages="errors" label="Description" required></v-textarea>
+                            </validation-provider>
+                            <br>
+                            <v-row justify="center">
+                                <v-btn  color="primary" class="mr-4" @click="submit">
+                                    Create
+                                </v-btn>
+                            </v-row>
                         </form>
                     </validation-observer>
                 </template>
@@ -56,6 +61,7 @@ export default {
             dialog: false,
             errors: null,
             souscateg: '',
+            description: ''
         }
     },
     computed: {
@@ -70,10 +76,12 @@ export default {
         submit() {
             this.$refs.observer.validate();
             let nomSousCateg = this.souscateg;
+            let description = this.description;
             let categorie = this.categorie;
             this.createSousCateg({
                 nomSousCateg,
-                categorie
+                categorie,
+                description
             }).then(() =>
                 this.dialog = false,
             );
@@ -81,3 +89,9 @@ export default {
     }
 }
 </script>
+
+<style>
+#form_souscateg {
+    padding: 30px;
+}
+</style>

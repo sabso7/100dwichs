@@ -6,7 +6,10 @@
         </v-row>
         <v-container fluid>
             <v-row>
-                <v-col cols="5" md="9">
+                <v-col cols="6" md="4" offset-md="1">
+                    <v-img src="@/assets/img/singe_thailand.jpg"></v-img>
+                </v-col>
+                <v-col cols="5" md="5" offset-md="1">
                     <section id="paragraphs">
                         <v-row>
                             <p class="font-weight-light home_block_text text-home-page"> Originaire d'Annecy, j'étudie la photographie à Lyon.
@@ -20,9 +23,6 @@
                             </p>
                         </v-row>
                     </section>
-                </v-col>
-                <v-col cols="7" md="3">
-                    <v-img src="@/assets/img/singe_thailand.jpg"></v-img>
                 </v-col>
             </v-row>
         </v-container>

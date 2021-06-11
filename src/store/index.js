@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     categorie: null,
+    sousCategorie: null,
     isLoading: false,
     photos: null,
     addPhoto: null,
@@ -35,7 +36,7 @@ export default new Vuex.Store({
         state.imgsArr.push(
           {
             "src": "https://dodie-api.site/photos/" + value.filePath,
-            "title": "This is first img title",
+            "description": value.description,
             "id": value.id,
           }
         )
@@ -60,6 +61,10 @@ export default new Vuex.Store({
     refresh(state){
       state.refresh += 1;
     },
+    setSousCategorie(state, sousCategorie){
+      state.sousCategorie = sousCategorie;
+      state.isLoading = false;
+    },
   },
   actions: {
     async getCategorie({commit}) {
@@ -75,6 +80,7 @@ export default new Vuex.Store({
     },
 
     async addPhoto({commit},data) {
+      commit("setIsLoading");
       if(data.file.size > (8000000)){
         commit("setError", 'Fichier trop volumineux !');
       }else{
@@ -132,6 +138,12 @@ export default new Vuex.Store({
         commit("refresh");
       });
       commit("setOffLoading");
+    },
+
+    async getSousCategorie({commit},data) {
+      commit("setIsLoading");
+      const sousCategorie = await api.getSousCategorie(data);
+      commit("setSousCategorie", sousCategorie);
     },
 
   },
