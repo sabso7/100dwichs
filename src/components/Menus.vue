@@ -80,10 +80,6 @@ export default {
 }
 
 .v-toolbar__content {
-    margin-top: 5px;
-}
-
-.v-toolbar__content {
-    padding-bottom: 400px;
+    margin-top: 20px;
 }
 </style>
