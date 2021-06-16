@@ -12,13 +12,17 @@
             </section>
             <v-col cols="12" md="8">
                 <v-row>
-                    <v-col v-for="imgReport in arrayImgReport" v-bind:key="imgReport.nomSousCateg" class="d-flex child-flex" cols="3">
+                    <v-col v-for="imgReport in arrayImgReport" v-bind:key="imgReport.nomSousCateg" class="d-flex child-flex" :cols="$mq | mq({
+    sm: 6,
+    md: 4,
+    lg: 3
+  })">
                         <v-row v-if="imgReport.photo">
                             <v-hover v-slot="{ hover }">
                                 <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                                     <v-img :src="imgReport.photo" :lazy-src="imgReport.photo" aspect-ratio="0" class="grey lighten-2">
                                         <template v-slot:placeholder>
-                                            <v-row justify="center">
+                                            <v-row class="fill-height ma-0" align="center" justify="center">
                                                 <v-progress-circular indeterminate color="black"></v-progress-circular>
                                             </v-row>
                                         </template>
@@ -36,7 +40,7 @@
                                 <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                                     <v-img src="@/assets/img/no_image.jpeg" lazy-src="@/assets/img/no_image.jpeg" aspect-ratio="0" class="grey lighten-2">
                                         <template v-slot:placeholder>
-                                            <v-row justify="center">
+                                            <v-row class="fill-height ma-0" align="center" justify="center">
                                                 <v-progress-circular indeterminate color="black"></v-progress-circular>
                                             </v-row>
                                         </template>
@@ -94,7 +98,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .v-card {
     transition: opacity .4s ease-in-out;
 }

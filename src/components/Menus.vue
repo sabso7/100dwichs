@@ -1,30 +1,81 @@
 <template>
-<v-container fluid>
-    <v-app-bar id="block_menu" flat color="white" fixed>
-        <router-link v-bind="size" to="/">
-            <v-img transition="slide-x-transition" id="logo-navbar" src="@/assets/logos/logo-1.png">
-            </v-img>
-        </router-link>
-        <v-spacer></v-spacer>
-        <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
-        <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-            <v-menu transition="slide-x-reverse-transition" v-if="cat.sousCategories.length" open-on-hover offset-y>
-                <template v-slot:activator="{ on }">
-                    <router-link to="/">
-                        <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size" v-on="on">{{cat.nomCategorie}}</v-btn>
-                    </router-link>
-                </template>
-            </v-menu>
-        </div>
-        <router-link to="/">
-            <v-btn @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
-        </router-link>
-        <router-link to="/">
-            <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
-        </router-link>
-        <v-spacer></v-spacer>
-    </v-app-bar>
-</v-container>
+<div v-if="$mq == 'sm'">
+    <v-container class="littlenav">
+        <v-row>
+            <v-col cols="4">
+                <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            </v-col>
+            <v-col cols="6">
+                <router-link aria-label="go to home page" to="/">
+                    <v-img id="logoNavbar" transition="slide-x-transition" src="@/assets/logos/logo-1.png">
+                    </v-img>
+                </router-link>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-divider></v-divider>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-navigation-drawer id="navDrawer" v-model="drawer" app fixed>
+        <v-list id="listDrawer">
+            <v-list-item-group v-model="group">
+                <v-list-item>
+                    <v-list-item-title>
+                        <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
+                    </v-list-item-title>
+                </v-list-item>
+                <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
+                    <v-list-item>
+                        <v-list-item-title>
+                            <router-link to="/">
+                                <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
+                            </router-link>
+                        </v-list-item-title>
+                    </v-list-item>
+                </div>
+                <v-list-item>
+                    <v-list-item-title>
+                        <router-link to="/">
+                            <v-btn @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
+                        </router-link>
+                    </v-list-item-title>
+                </v-list-item>
+                <v-list-item>
+                    <v-list-item-title>
+                        <router-link to="/">
+                            <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
+                        </router-link>
+                    </v-list-item-title>
+                </v-list-item>
+            </v-list-item-group>
+        </v-list>
+    </v-navigation-drawer>
+</div>
+<v-app-bar v-else id="block_menu" flat color="white" fixed>
+    <router-link aria-label="go to home page" to="/">
+        <v-img id="logoNavbar" transition="slide-x-transition" src="@/assets/logos/logo-1.png"></v-img>
+    </router-link>
+    <v-spacer></v-spacer>
+    <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
+    <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
+        <v-menu transition="slide-x-reverse-transition" v-if="cat.sousCategories.length" open-on-hover offset-y>
+            <template v-slot:activator="{ on }">
+                <router-link to="/">
+                    <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size" v-on="on">{{cat.nomCategorie}}</v-btn>
+                </router-link>
+            </template>
+        </v-menu>
+    </div>
+    <router-link to="/">
+        <v-btn @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
+    </router-link>
+    <router-link to="/">
+        <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
+    </router-link>
+    <v-spacer></v-spacer>
+</v-app-bar>
 </template>
 
 <script>
@@ -35,10 +86,8 @@ import {
 export default {
     data() {
         return {
-            iconbarKey: 0,
-            collapseOnScroll: true,
-            drawer: true,
-            mini: true,
+            drawer: false,
+            group: null,
         };
     },
     computed: {
@@ -70,16 +119,34 @@ export default {
     beforeMount() {
         this.getCategorie();
     },
+    watch: {
+        group() {
+            this.drawer = false
+        },
+    },
 };
 </script>
 
 <style lang="scss">
-#logo-navbar {
+#logoNavbar {
     max-width: 100px;
     max-height: 50px;
 }
 
 .v-toolbar__content {
-    margin-top: 20px;
+    margin-top: 5px;
+}
+
+#navDrawer {
+    max-width: 130px;
+    padding-top: 80px;
+}
+
+.littlenav {
+    position: absolute;
+    position: fixed;
+    z-index: 1000;
+    background-color: white;
+    top: 0px;
 }
 </style>

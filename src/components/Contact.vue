@@ -46,12 +46,12 @@
         <v-container id="logos-footer">
             <v-row justify="center">
                 <span class="logo-footer">
-                    <v-btn icon href="https://www.instagram.com/elodiebolatto/?hl=fr" target="_blank">
+                    <v-btn rel="noopener" aria-label="go to instagram" icon href="https://www.instagram.com/elodiebolatto/?hl=fr" target="_blank">
                         <v-icon x-large class="icon">mdi-instagram</v-icon>
                     </v-btn>
                 </span>
                 <span class="logo-footer">
-                    <v-btn icon href="https://www.facebook.com/elodiebolattophotographie" target="_blank">
+                    <v-btn rel="noopener" aria-label="go to facebook" icon href="https://www.facebook.com/elodiebolattophotographie" target="_blank">
                         <v-icon x-large class="icon">mdi-facebook</v-icon>
                     </v-btn>
                 </span>

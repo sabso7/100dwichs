@@ -16,7 +16,7 @@
         <v-row justify="center">
             <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
         </v-row>
-        <masonry :gutter="{ default: '10px', 700: '10px' }" :cols="{ default: 3, 500: 4, 300: 5, 100: 1 }">
+        <masonry :gutter="{ default: '10px', 700: '10px' }" :cols="{ default: 3, 500: 2, 300: 5, 100: 1 }">
             <v-card v-for="(item, index) in JSON.parse(JSON.stringify(imgsArr))" :key="index" class="mt-2 mb-2" outlined color="transparent" @click="() => showImg(index)">
                 <v-img :src="item.src" lazy-src="https://picsum.photos/id/11/100/60" :alt="item.description">
                     <template v-slot:placeholder>
@@ -96,6 +96,6 @@ export default {
 
 #title-gallery {
     text-transform: capitalize;
-    padding-top: 30px;
+    padding-top: 70px;
 }
 </style>

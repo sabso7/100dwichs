@@ -10,7 +10,11 @@
             </section>
             <v-col cols="12" md="8">
                 <v-row>
-                    <v-col v-for="imgPort in arrayImgPort" v-bind:key="imgPort.nomSousCateg" class="d-flex child-flex" cols="3">
+                    <v-col v-for="imgPort in arrayImgPort" v-bind:key="imgPort.nomSousCateg" class="d-flex child-flex" :cols="$mq | mq({
+    sm: 6,
+    md: 4,
+    lg: 3
+  })">
                         <v-row v-if="imgPort.photo">
                             <v-hover v-slot="{ hover }">
                                 <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">

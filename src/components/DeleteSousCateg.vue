@@ -1,5 +1,5 @@
 <template>
-<v-btn color="error" icon rounded small v-if="isAuth" v-on:click="clickDeleteSousCateg(idSousCateg)">
+<v-btn aria-label="delete-button" color="error" icon rounded small v-if="isAuth" v-on:click="clickDeleteSousCateg(idSousCateg)">
     <v-icon class="icon">mdi-close-circle-outline</v-icon>
 </v-btn>
 </template>
