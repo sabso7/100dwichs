@@ -16,16 +16,21 @@ const routes = [
   {
     path: '/galerie/:name/:id',
     name: 'Photo',
-    component: Photo
+    component: Photo,
+    meta: { scrollToTop: true }
   },
   {
     path: '/backoffice',
     name: 'Backoffice',
-    component: Backoffice
+    component: Backoffice,
+    meta: { scrollToTop: true }
   }
 ]
 
 const router = new VueRouter({
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
   mode: 'history',
   base: process.env.BASE_URL,
   routes

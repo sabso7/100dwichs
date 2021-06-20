@@ -103,9 +103,6 @@ export default {
         scrollToTop: function () {
             window.scrollTo(0, 0);
         },
-    },
-    mounted(){
-        console.log(this.$mq)
     }
 };
 </script>

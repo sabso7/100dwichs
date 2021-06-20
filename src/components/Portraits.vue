@@ -42,7 +42,7 @@
                                         </template>
                                         <v-row class="block_btn_img_home" :class="$mq" align="center" justify="space-around">
                                             <v-btn :to="'/galerie/'+imgPort.nomSousCateg+'/'+imgPort.id" :class="{ 'show-btns': hover }" :color="transparent" text>
-                                                <h2>{{imgPort.nomSousCateg}}</h2>
+                                                <h2 style="font-size:30px">{{imgPort.nomSousCateg}}</h2>
                                             </v-btn>
                                         </v-row>
                                     </v-img>
