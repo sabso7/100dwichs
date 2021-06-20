@@ -6,12 +6,11 @@
         </v-row>
         <v-container v-if="$mq == 'lg'" fluid>
             <v-row>
-                <v-col cols="6" md="4" offset-md="1">
+                <v-col cols="4" md="4" offset-md="1">
                     <v-img src="@/assets/img/singe_thailand.jpg"></v-img>
                 </v-col>
-                <v-col cols="5" md="5" offset-md="1">
+                <v-col cols="8" md="5" offset-md="1">
                     <section id="paragraphs">
-                        <v-row>
                             <p class="font-weight-light home_block_text text-home-page"> Originaire d'Annecy, j'étudie la photographie à Lyon.
                                 Mon diplôme en poche, je décide de partir à l'aventure, seule, avec comme objectif d'allier mes 3 passions :
                                 <b>photographie</b>, <b>voyage</b> et <b>agriculture</b>.
@@ -21,7 +20,6 @@
                                 Les voyages m'ont <b>ouvert l'esprit</b> et m'ont permis aujourd'hui de lancer mon entreprise avec mes valeurs qui sont : le <b>partage</b>, <b>l'expérience</b> et la <b>créativité</b>.
                                 C'est dans cette démarche simple et humaine que je souhaite créer de nouvelles rencontres et de belles images avec vous.
                             </p>
-                        </v-row>
                     </section>
                 </v-col>
             </v-row>
@@ -30,9 +28,7 @@
                 <v-row justify="center">
                     <v-img src="@/assets/img/singe_thailand.jpg"></v-img>
                 </v-row>
-                <div>
-                    <section id="paragraphs">
-                        <v-row>
+                    <section>
                             <p class="font-weight-light home_block_text text-home-page"> Originaire d'Annecy, j'étudie la photographie à Lyon.
                                 Mon diplôme en poche, je décide de partir à l'aventure, seule, avec comme objectif d'allier mes 3 passions :
                                 <b>photographie</b>, <b>voyage</b> et <b>agriculture</b>.
@@ -42,9 +38,7 @@
                                 Les voyages m'ont <b>ouvert l'esprit</b> et m'ont permis aujourd'hui de lancer mon entreprise avec mes valeurs qui sont : le <b>partage</b>, <b>l'expérience</b> et la <b>créativité</b>.
                                 C'est dans cette démarche simple et humaine que je souhaite créer de nouvelles rencontres et de belles images avec vous.
                             </p>
-                        </v-row>
                     </section>
-                </div>
         </v-container>
     </v-container>
 </v-main>
@@ -58,7 +52,6 @@ export default {};
 .home_block_text {
     text-align: justify;
     text-justify: inter-word;
-    margin-right: 20px ;
     margin-top: 50px;
 }
 </style>

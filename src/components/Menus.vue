@@ -1,19 +1,19 @@
 <template>
 <div v-if="$mq == 'sm'">
     <v-container class="littlenav">
-        <v-row>
-            <v-col cols="4">
+        <v-row no-gutters>
+            <v-col cols="3" id="icon_drawer" align="center">
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             </v-col>
-            <v-col cols="6">
+            <v-col>
                 <router-link aria-label="go to home page" to="/">
-                    <v-img id="logoNavbar" transition="slide-x-transition" src="@/assets/logos/logo-1.png">
+                    <v-img id="logoNavBarSmall" src="@/assets/logos/logo-2.png">
                     </v-img>
                 </router-link>
             </v-col>
         </v-row>
         <v-row>
-            <v-col>
+            <v-col id="dividerSmallBar">
                 <v-divider></v-divider>
             </v-col>
         </v-row>
@@ -60,13 +60,9 @@
     <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
     <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-        <v-menu transition="slide-x-reverse-transition" v-if="cat.sousCategories.length" open-on-hover offset-y>
-            <template v-slot:activator="{ on }">
-                <router-link to="/">
-                    <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size" v-on="on">{{cat.nomCategorie}}</v-btn>
-                </router-link>
-            </template>
-        </v-menu>
+        <router-link to="/">
+            <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
+        </router-link>
     </div>
     <router-link to="/">
         <v-btn @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
@@ -133,6 +129,16 @@ export default {
     max-height: 50px;
 }
 
+#logoNavBarSmall {
+    max-width: 200px !important;
+    max-height: 200px !important;
+    padding: 0px !important;
+}
+
+#dividerSmallBar {
+    padding: 0px !important;
+}
+
 .v-toolbar__content {
     margin-top: 5px;
 }
@@ -148,5 +154,10 @@ export default {
     z-index: 1000;
     background-color: white;
     top: 0px;
+    padding: 0px !important;
+}
+
+#icon_drawer{
+    padding-top: 30px ;
 }
 </style>

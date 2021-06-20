@@ -113,7 +113,7 @@ export default new Vuex.Store({
     async getPhotosHomePage({commit},categorie) {
       categorie.forEach(element1 => {
             element1.sousCategories.forEach(element2 => {
-                let photos = (!element2.photos.length) ? null : "https://dodie-api.site/photos/" + element2.photos[0].filePath
+                let photos = (!element2.photos.length) ? "@/assets/img/no_image.jpeg" : "https://dodie-api.site/photos/" + element2.photos[0].filePath
                 let img = {
                   "nomSousCateg": element2.nomSouscategorie,
                   "photo": photos,
@@ -147,6 +147,4 @@ export default new Vuex.Store({
     },
 
   },
-  modules: {
-  }
 })

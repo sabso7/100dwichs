@@ -91,11 +91,11 @@ export default {
 }
 
 .block_text_souscategorie {
-    padding: 50px;
+    padding: 20px;
 }
 
 #title-gallery {
     text-transform: capitalize;
-    padding-top: 70px;
+    padding-top: 90px;
 }
 </style>

@@ -3,7 +3,7 @@
     <v-container v-if="$mq =='sm'">
         <v-carousel id="home-banner-title-sm" reverse-transition="fade-transition" transition="fade-transition" :show-arrows="false" cycle hide-delimiter-background>
             <v-carousel-item>
-                    <v-img src="@/assets/img/singe_thailand.jpg" lazy-src="@/assets/banner/banner-1.jpg">
+                    <v-img src="@/assets/img/voiture_inde.jpg" lazy-src="@/assets/img/voiture_inde.jpg">
                         <template v-slot:placeholder>
                             <v-row justify="center">
                                 <v-progress-circular indeterminate color="black"></v-progress-circular>
@@ -12,7 +12,25 @@
                     </v-img>
             </v-carousel-item>
             <v-carousel-item>
-                    <v-img src="@/assets/img/usa_home.jpg" lazy-src="@/assets/banner/usa_home_carousel.jpg">
+                    <v-img src="@/assets/img/usa_home.jpg" lazy-src="@/assets/img/usa_home.jpg">
+                        <template v-slot:placeholder>
+                            <v-row justify="center">
+                                <v-progress-circular indeterminate color="black"></v-progress-circular>
+                            </v-row>
+                        </template>
+                    </v-img>
+            </v-carousel-item>
+            <v-carousel-item>
+                    <v-img src="@/assets/img/lampion_chine.jpg" lazy-src="@/assets/img/lampion_chine.jpg">
+                        <template v-slot:placeholder>
+                            <v-row justify="center">
+                                <v-progress-circular indeterminate color="black"></v-progress-circular>
+                            </v-row>
+                        </template>
+                    </v-img>
+            </v-carousel-item>
+            <v-carousel-item>
+                    <v-img src="@/assets/img/homme_inde.jpg" lazy-src="@/assets/img/homme_inde.jpg">
                         <template v-slot:placeholder>
                             <v-row justify="center">
                                 <v-progress-circular indeterminate color="black"></v-progress-circular>
@@ -21,7 +39,7 @@
                     </v-img>
             </v-carousel-item>
         </v-carousel>
-        <v-img class="img-title" :class="$mq" transition="slide-x-transition" src="@/assets/logos/logo-3.png">
+        <v-img v-if="$mq !=='sm'" class="img-title" :class="$mq" transition="slide-x-transition" src="@/assets/logos/logo-3.png">
         </v-img>
     </v-container>
     <v-container v-else id="home-banner-title">
@@ -121,12 +139,12 @@ html {
 
 .theme--light.v-divider {
     border-color: lightgray !important;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #title-home-img {
     position: absolute;
-    top: 28vh;
+    top: 38vh;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-bottom: 200px;
@@ -152,7 +170,7 @@ html {
 }
 
 #home-banner-title-sm {
-    margin-top: 100px !important;
+    margin-top: 110px !important;
 }
 
 .btn-galerie {
@@ -160,7 +178,7 @@ html {
 }
 
 #home-banner-title {
-    margin-top: 80px;
+    margin-top: 150px;
     margin-bottom: 70px;
 }
 
@@ -170,6 +188,18 @@ html {
 
 #arrow-homepage{
     padding-bottom: 20px;
+}
+
+.block_btn_img_home.lg {
+    margin-top: 150px;
+}
+
+.block_btn_img_home.sm {
+    margin-top: 80px;
+}
+
+.rowBlockImg{
+    padding: 10px;
 }
 
 </style>

@@ -8,14 +8,30 @@
                 </v-row>
                 <p class="font-weight-light text-home-page">Mes photos reflètent mes expériences vécues, à la rencontre des locaux. En m’imprégnant des cultures et modes de vie, je capte les détails, l'atmosphère et les émotions. Je souhaite faire partager et témoigner de ces expériences uniques avec vous.</p>
             </section>
-            <v-col cols="12" md="8">
+            <v-col>
                 <v-row>
-                    <v-col v-for="imgPort in arrayImgPort" v-bind:key="imgPort.nomSousCateg" class="d-flex child-flex" :cols="$mq | mq({
+                    <v-col v-for="imgPort in arrayImgPort" v-bind:key="imgPort.nomSousCateg" :cols="$mq | mq({
     sm: 6,
     md: 4,
     lg: 3
   })">
-                        <v-row v-if="imgPort.photo">
+                        <v-row v-if="$mq ==='sm'" class="rowBlockImg">
+                                <v-card>
+                                    <v-img :src="imgPort.photo" :lazy-src="imgPort.photo" aspect-ratio="0" class="grey lighten-2">
+                                        <template v-slot:placeholder>
+                                            <v-row class="fill-height ma-0" align="center" justify="center">
+                                                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                                            </v-row>
+                                        </template>
+                                        <v-row class="block_btn_img_home" :class="$mq" align="center" justify="space-around">
+                                            <v-btn :to="'/galerie/'+imgPort.nomSousCateg+'/'+imgPort.id" color="white" text>
+                                                <h2>{{imgPort.nomSousCateg}}</h2>
+                                            </v-btn>
+                                        </v-row>
+                                    </v-img>
+                                </v-card>
+                        </v-row>
+                        <v-row v-else class="rowBlockImg">
                             <v-hover v-slot="{ hover }">
                                 <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                                     <v-img :src="imgPort.photo" :lazy-src="imgPort.photo" aspect-ratio="0" class="grey lighten-2">
@@ -24,26 +40,8 @@
                                                 <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                                             </v-row>
                                         </template>
-                                        <v-row class="block_btn_img_home" align="center" justify="space-around">
+                                        <v-row class="block_btn_img_home" :class="$mq" align="center" justify="space-around">
                                             <v-btn :to="'/galerie/'+imgPort.nomSousCateg+'/'+imgPort.id" :class="{ 'show-btns': hover }" :color="transparent" text>
-                                                <h2>{{imgPort.nomSousCateg}}</h2>
-                                            </v-btn>
-                                        </v-row>
-                                    </v-img>
-                                </v-card>
-                            </v-hover>
-                        </v-row>
-                        <v-row v-else>
-                            <v-hover v-slot="{ hover }">
-                                <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                                    <v-img src="@/assets/img/no_image.jpeg" lazy-src="@/assets/img/no_image.jpeg" aspect-ratio="0" class="grey lighten-2">
-                                        <template v-slot:placeholder>
-                                            <v-row class="fill-height ma-0" align="center" justify="center">
-                                                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                                            </v-row>
-                                        </template>
-                                        <v-row class="block_btn_img_home" align="center" justify="space-around">
-                                            <v-btn :to="'/galerie/'+imgPort.nomSousCateg+'/'+imgPort.id" :class="{ 'show-btns': hover }" color="black" text>
                                                 <h2>{{imgPort.nomSousCateg}}</h2>
                                             </v-btn>
                                         </v-row>
@@ -94,15 +92,7 @@ export default {
     transition: opacity .4s ease-in-out;
 }
 
-.v-card:not(.on-hover) {
-    opacity: 0.6;
-}
-
 .show-btns {
     color: rgba(255, 255, 255, 1) !important;
-}
-
-.block_btn_img_home {
-    margin-top: 100px;
 }
 </style>

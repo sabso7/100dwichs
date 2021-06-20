@@ -6,18 +6,32 @@
                 <v-row justify="center">
                     <div style="padding:20px" class="overline text-h5 text-sm-h5 mb-4">Reportages</div>
                 </v-row>
-                <v-row>
                     <p class="font-weight-light text-home-page">Mes photos reflètent mes expériences vécues, à la rencontre des locaux.En m’imprégnant des cultures et modes de vie, je capte les détails, l'atmosphère et les émotions. Je souhaite faire partager et témoigner de ces expériences uniques avec vous.</p>
-                </v-row>
             </section>
-            <v-col cols="12" md="8">
-                <v-row>
-                    <v-col v-for="imgReport in arrayImgReport" v-bind:key="imgReport.nomSousCateg" class="d-flex child-flex" :cols="$mq | mq({
+            <v-col>
+                <v-row align="center">
+                    <v-col v-for="imgReport in arrayImgReport" v-bind:key="imgReport.nomSousCateg" :cols="$mq | mq({
     sm: 6,
     md: 4,
     lg: 3
   })">
-                        <v-row v-if="imgReport.photo">
+                        <v-row class="rowBlockImg" v-if="$mq === 'sm'" justify="space-around">
+                                <v-card>
+                                    <v-img :src="imgReport.photo" :lazy-src="imgReport.photo" aspect-ratio="0" class="grey lighten-2">
+                                        <template v-slot:placeholder>
+                                            <v-row align="center" justify="center">
+                                                <v-progress-circular indeterminate color="black"></v-progress-circular>
+                                            </v-row>
+                                        </template>
+                                        <v-row class="block_btn_img_home" :class="$mq" align="center" justify="space-around">
+                                            <v-btn :to="'/galerie/'+imgReport.nomSousCateg+'/'+imgReport.id" color="white" text>
+                                                <h2>{{imgReport.nomSousCateg}}</h2>
+                                            </v-btn>
+                                        </v-row>
+                                    </v-img>
+                                </v-card> 
+                        </v-row>
+                        <v-row class="rowBlockImg" v-else>
                             <v-hover v-slot="{ hover }">
                                 <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                                     <v-img :src="imgReport.photo" :lazy-src="imgReport.photo" aspect-ratio="0" class="grey lighten-2">
@@ -26,31 +40,13 @@
                                                 <v-progress-circular indeterminate color="black"></v-progress-circular>
                                             </v-row>
                                         </template>
-                                        <v-row class="block_btn_img_home" align="center" justify="space-around">
+                                        <v-row class="block_btn_img_home" :class="$mq" align="center" justify="space-around">
                                             <v-btn :to="'/galerie/'+imgReport.nomSousCateg+'/'+imgReport.id" :class="{ 'show-btns': hover }" :color="transparent" text>
                                                 <h2>{{imgReport.nomSousCateg}}</h2>
                                             </v-btn>
                                         </v-row>
                                     </v-img>
-                                </v-card>
-                            </v-hover>
-                        </v-row>
-                        <v-row v-else>
-                            <v-hover v-slot="{ hover }">
-                                <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                                    <v-img src="@/assets/img/no_image.jpeg" lazy-src="@/assets/img/no_image.jpeg" aspect-ratio="0" class="grey lighten-2">
-                                        <template v-slot:placeholder>
-                                            <v-row class="fill-height ma-0" align="center" justify="center">
-                                                <v-progress-circular indeterminate color="black"></v-progress-circular>
-                                            </v-row>
-                                        </template>
-                                        <v-row class="block_btn_img_home" align="center" justify="space-around">
-                                            <v-btn :to="'/galerie/'+imgReport.nomSousCateg+'/'+imgReport.id" :class="{ 'show-btns': hover }" color="black" text>
-                                                <h2>{{imgReport.nomSousCateg}}</h2>
-                                            </v-btn>
-                                        </v-row>
-                                    </v-img>
-                                </v-card>
+                                </v-card> 
                             </v-hover>
                         </v-row>
                         <delete-sous-categ :idSousCateg="imgReport.id"></delete-sous-categ>
@@ -103,15 +99,7 @@ export default {
     transition: opacity .4s ease-in-out;
 }
 
-.v-card:not(.on-hover) {
-    opacity: 0.6;
-}
-
 .show-btns {
     color: rgba(255, 255, 255, 1) !important;
-}
-
-.block_btn_img_home {
-    margin-top: 100px;
 }
 </style>
