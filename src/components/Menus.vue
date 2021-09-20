@@ -7,8 +7,7 @@
             </v-col>
             <v-col>
                 <router-link aria-label="go to home page" to="/">
-                    <v-img id="logoNavBarSmall" src="@/assets/logos/logo-2.png">
-                    </v-img>
+                   Home
                 </router-link>
             </v-col>
         </v-row>
@@ -49,13 +48,18 @@
                         </router-link>
                     </v-list-item-title>
                 </v-list-item>
+                <v-list-item>
+                    <v-list-item-title>
+                        <create-categ></create-categ>
+                    </v-list-item-title>
+                </v-list-item>
             </v-list-item-group>
         </v-list>
     </v-navigation-drawer>
 </div>
-<v-app-bar v-else id="block_menu" flat color="white" fixed>
+<v-app-bar v-else id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
     <router-link aria-label="go to home page" to="/">
-        <v-img id="logoNavbar" transition="slide-x-transition" src="@/assets/logos/logo-1.png"></v-img>
+        <span class="span_logo"></span>
     </router-link>
     <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
@@ -65,11 +69,9 @@
         </router-link>
     </div>
     <router-link to="/">
-        <v-btn @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
-    </router-link>
-    <router-link to="/">
         <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
     </router-link>
+    <create-categ></create-categ>
     <v-spacer></v-spacer>
 </v-app-bar>
 </template>
@@ -79,12 +81,16 @@ import {
     mapState,
     mapActions
 } from "vuex";
+import CreateCateg from "./CreateCateg.vue";
 export default {
     data() {
         return {
             drawer: false,
             group: null,
         };
+    },
+    components:{
+        CreateCateg
     },
     computed: {
         ...mapState(["categorie", "isLoading", "isAuth", "token"]),
@@ -146,6 +152,7 @@ export default {
 #navDrawer {
     max-width: 130px;
     padding-top: 80px;
+    position: absolute;
 }
 
 .littlenav {
@@ -160,4 +167,5 @@ export default {
 #icon_drawer{
     padding-top: 30px ;
 }
+
 </style>

@@ -24,7 +24,7 @@
                         </v-list-item-action>
 
                         <v-list-item-content>
-                            <v-list-item-title class="font-weight-light">elodie(.)bolatto(@)gmail.com</v-list-item-title>
+                            <v-list-item-title class="font-weight-light">sabso(@)gmail.com</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 

@@ -2,7 +2,7 @@
 <div class="text-center">
     <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn aria-label="create-button" color="red" dark v-bind="attrs" v-on="on">
+            <v-btn rounded aria-label="create-button" color="red" dark v-bind="attrs" v-on="on">
                 <v-icon class="icon">mdi-plus</v-icon>
             </v-btn>
         </template>
@@ -11,9 +11,9 @@
                 <template>
                     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
                     <validation-observer ref="observer">
-                        <form id="form_souscateg">
-                            <validation-provider v-slot="{ errors }" names="souscateg" rules="required">
-                                <v-text-field v-model="souscateg" :error-messages="errors" label="Sous-Catégorie" required></v-text-field>
+                        <form id="form_categ">
+                            <validation-provider v-slot="{ errors }" names="categ" rules="required">
+                                <v-text-field v-model="categ" :error-messages="errors" label="Catégorie" required></v-text-field>
                             </validation-provider>
                             <br>
                             <validation-provider v-slot="{ errors }" names="description" rules="required">
@@ -60,7 +60,7 @@ export default {
         return {
             dialog: false,
             errors: null,
-            souscateg: '',
+            categ: '',
             description: ''
         }
     },
@@ -72,16 +72,13 @@ export default {
         ValidationObserver,
     },
     methods: {
-        ...mapActions(["createSousCateg"]),
+        ...mapActions(["createCateg"]),
         submit() {
             this.$refs.observer.validate();
-            let nomSousCateg = this.souscateg;
+            let nomCateg = this.categ;
             let description = this.description;
-            let categorie = this.categorie;
-            console.log(categorie)
-            this.createSousCateg({
-                nomSousCateg,
-                categorie,
+            this.createCateg({
+                nomCateg,
                 description
             }).then(() =>
                 this.dialog = false,
@@ -92,7 +89,7 @@ export default {
 </script>
 
 <style>
-#form_souscateg {
+#form_categ {
     padding: 30px;
 }
 </style>

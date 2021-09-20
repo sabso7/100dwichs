@@ -146,5 +146,12 @@ export default new Vuex.Store({
       commit("setSousCategorie", sousCategorie);
     },
 
+    async createCateg({commit},data) {
+      commit("setIsLoading");
+      await api.createCateg(data);
+      commit("setOffLoading");
+      commit("refresh");
+    },
+
   },
 })

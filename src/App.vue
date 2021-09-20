@@ -1,9 +1,7 @@
 <template>
 <v-app id="app-body">
-        <menus :key="menuKey"></menus>
-    <v-container id="block-gallery">
-        <router-view :key="$route.fullPath"></router-view>
-    </v-container>
+    <menus :key="menuKey"></menus>
+    <router-view :key="$route.fullPath"></router-view>
     <v-container id="footer">
         <v-container v-if="this.$route.name !== 'Home'" id="logos-footer">
             <v-row justify="center">

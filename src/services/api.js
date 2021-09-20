@@ -19,6 +19,22 @@ class OnSetApi{
           .catch(error => console.log(error));
     }
 
+    async createCateg(data) {
+      return await this.api
+        .post("/api/categories",
+          {
+            nomCategorie: data.nomCateg,
+            description: data.description
+          },{
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+            }
+          })
+        .then(({ data }) => {data})
+        .catch(error =>{ return error});
+    }
+
     async addPhoto(dataForm) {
 
       let formData = new FormData();
@@ -83,6 +99,7 @@ class OnSetApi{
             }
           })
         .then(({ data }) => {
+          console.log(data.token);
 
           if(data.token){
             localStorage.setItem('user-token', data.token),localStorage.setItem('is-auth', true)
