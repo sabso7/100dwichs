@@ -10,7 +10,7 @@
         </v-img>
     </v-container>
     <v-container class="home-block">
-        <v-divider id="Reportages"></v-divider>
+        <v-divider id="Categories"></v-divider>
         <categorie></categorie>
         <v-divider id="content_contact"></v-divider>
         <contact></contact>

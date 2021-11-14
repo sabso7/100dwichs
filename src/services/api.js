@@ -35,6 +35,17 @@ class OnSetApi{
         .catch(error =>{ return error});
     }
 
+    async deleteCateg(id) {
+      return await this.api
+        .delete("/api/categories/" + id.idCateg,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
+        })  
+        .catch(error => console.log(error));
+    }
+
     async addPhoto(dataForm) {
 
       let formData = new FormData();

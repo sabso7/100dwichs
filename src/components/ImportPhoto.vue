@@ -8,12 +8,7 @@
             <v-icon class="icon">mdi-image-plus</v-icon>
         </v-btn>
         <v-dialog v-model="dialog" width="500">
-            <div v-if="photoLoader">
-                <v-row align="center" justify="center">
-                    <v-progress-circular indeterminate color="black"></v-progress-circular>
-                </v-row>
-            </div>
-            <v-card v-else>
+            <v-card>
                 <v-card-title class="headline"></v-card-title>
                 <v-card-text>
                     <v-form @submit.prevent="
@@ -26,7 +21,7 @@
                         </v-container>
                         <v-card-actions>
                             <v-row align="center" justify="center">
-                                <v-btn color="primary" class="mr-4" type="submit">Ajouter</v-btn>
+                                <v-btn color="primary" class="mr-4" type="submit" @click="dialog = false">Ajouter</v-btn>
                             </v-row>
                         </v-card-actions>
                     </v-form>
@@ -65,7 +60,6 @@ export default {
         },
         addPhoto(sousCateg, file) {
             let description = this.descriptionPhoto;
-            this.photoLoader = true;
             this.$store.dispatch("addPhoto", {
                 sousCateg,
                 file,

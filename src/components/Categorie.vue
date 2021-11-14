@@ -1,7 +1,8 @@
 <template>
 <v-main>
     <create-categ></create-categ>
-    <v-container v-for="categ in categorie" v-bind:key="categ.nomCategorie">
+    <v-container v-for="categ in categorie" v-bind:key="categ.nomCategorie" :id="categ.nomCategorie">
+        <delet-categ :idCateg="categ.id"></delet-categ>
         <section>
             <v-row align="center" justify="center">
                 <div style="padding:20px" class="overline text-h5 text-sm-h5 mb-4">{{categ.nomCategorie}}</div>
@@ -13,8 +14,8 @@
         <v-row class="rowBlockImg">
             <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie" class="d-flex child-flex" cols="4">
                 <v-hover v-slot="{ hover }">
-                    <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                        <v-img :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath: nopic" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : nopic" aspect-ratio="0" class="grey lighten-2">
+                    <v-card contain :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                        <v-img contain aspect-ratio="1" :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath: nopic" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : nopic" class="grey lighten-2">
                             <template v-slot:placeholder>
                                 <v-row class="fill-height ma-0" align="center" justify="center">
                                     <v-progress-circular indeterminate color="black"></v-progress-circular>
@@ -44,11 +45,13 @@ import {
 } from "vuex";
 import CreateSousCateg from './CreateSousCateg.vue';
 import CreateCateg from "./CreateCateg.vue";
+import DeletCateg from "./DeleteCateg.vue";
 
 export default {
     components: {
         CreateSousCateg,
-        CreateCateg
+        CreateCateg,
+        DeletCateg
     },
     data() {
         return {
@@ -62,9 +65,6 @@ export default {
     methods: {
         ...mapActions(["getPhotosHomePage"]),
     },
-    mounted: function () {
-
-    }
 }
 </script>
 
