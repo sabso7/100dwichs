@@ -2,7 +2,9 @@
 <v-main>
     <create-categ></create-categ>
     <v-container v-for="categ in categorie" v-bind:key="categ.nomCategorie" :id="categ.nomCategorie">
+        <v-row align="center" justify="center">
         <delet-categ :idCateg="categ.id"></delet-categ>
+        </v-row>
         <section>
             <v-row align="center" justify="center">
                 <div style="padding:20px" class="overline text-h5 text-sm-h5 mb-4">{{categ.nomCategorie}}</div>
@@ -12,10 +14,13 @@
             </v-row>
         </section>
         <v-row class="rowBlockImg">
-            <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie" class="d-flex child-flex" cols="4">
+            <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie" class="d-flex child-flex" cols="6" sm="6" md="4" lg="4">
                 <v-hover v-slot="{ hover }">
-                    <v-card contain :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                        <v-img contain aspect-ratio="1" :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath: nopic" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : nopic" class="grey lighten-2">
+                    <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                        <v-img class="ma-0" align="stretch" aspect-ratio="1" :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'">
+                            <v-row align="end" justify="end" class="ma-1">
+                            <delete-sous-categ></delete-sous-categ>
+                            </v-row>
                             <template v-slot:placeholder>
                                 <v-row class="fill-height ma-0" align="center" justify="center">
                                     <v-progress-circular indeterminate color="black"></v-progress-circular>
@@ -30,9 +35,11 @@
                     </v-card>
                 </v-hover>
             </v-col>
+            <v-row align="center" justify="center">
             <v-col class="d-flex child-flex" cols="4">
                 <create-sous-categ :categorie="'/api/categories/'+categ.id"></create-sous-categ>
             </v-col>
+            </v-row>
         </v-row>
     </v-container>
 </v-main>
@@ -46,12 +53,14 @@ import {
 import CreateSousCateg from './CreateSousCateg.vue';
 import CreateCateg from "./CreateCateg.vue";
 import DeletCateg from "./DeleteCateg.vue";
+import DeleteSousCateg from './DeleteSousCateg.vue';
 
 export default {
     components: {
         CreateSousCateg,
         CreateCateg,
-        DeletCateg
+        DeletCateg,
+        DeleteSousCateg
     },
     data() {
         return {
@@ -74,6 +83,6 @@ export default {
 }
 
 .show-btns {
-    color: rgba(255, 255, 255, 1) !important;
+    color: black !important;
 }
 </style>
