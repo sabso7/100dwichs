@@ -1,7 +1,7 @@
 <template>
 <v-main>
+    <create-categ></create-categ>
     <v-container v-for="categ in categorie" v-bind:key="categ.nomCategorie">
-
         <section>
             <v-row align="center" justify="center">
                 <div style="padding:20px" class="overline text-h5 text-sm-h5 mb-4">{{categ.nomCategorie}}</div>
@@ -10,11 +10,11 @@
                 <p class="font-weight-light text-home-page">{{categ.description}}</p>
             </v-row>
         </section>
-        <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie">
-            <v-row class="rowBlockImg" v-if="sousCateg.photos.length !== 0">
+        <v-row class="rowBlockImg">
+            <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie" class="d-flex child-flex" cols="4">
                 <v-hover v-slot="{ hover }">
                     <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                        <v-img :src="'https://dodie-api.site/photos/'+sousCateg.photos[0].id" :lazy-src="'https://dodie-api.site/photos/'+sousCateg.photos[0].filePath" aspect-ratio="0" class="grey lighten-2">
+                        <v-img :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath: nopic" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : nopic" aspect-ratio="0" class="grey lighten-2">
                             <template v-slot:placeholder>
                                 <v-row class="fill-height ma-0" align="center" justify="center">
                                     <v-progress-circular indeterminate color="black"></v-progress-circular>
@@ -28,10 +28,10 @@
                         </v-img>
                     </v-card>
                 </v-hover>
-            </v-row>
-        </v-col>
-        <v-row v-if="isAuth" justify="center">
-            <create-sous-categ :categorie="'/api/categories/'+categ.id"></create-sous-categ>
+            </v-col>
+            <v-col class="d-flex child-flex" cols="4">
+                <create-sous-categ :categorie="'/api/categories/'+categ.id"></create-sous-categ>
+            </v-col>
         </v-row>
     </v-container>
 </v-main>
@@ -43,14 +43,17 @@ import {
     mapActions,
 } from "vuex";
 import CreateSousCateg from './CreateSousCateg.vue';
+import CreateCateg from "./CreateCateg.vue";
 
 export default {
     components: {
         CreateSousCateg,
+        CreateCateg
     },
     data() {
         return {
             transparent: 'rgba(0, 0, 0, 0)',
+            nopic: '../assets/banner/banner_1.jpg'
         }
     },
     computed: {

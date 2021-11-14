@@ -71,7 +71,6 @@
     <router-link to="/">
         <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
     </router-link>
-    <create-categ></create-categ>
     <v-spacer></v-spacer>
 </v-app-bar>
 </template>
@@ -81,16 +80,13 @@ import {
     mapState,
     mapActions
 } from "vuex";
-import CreateCateg from "./CreateCateg.vue";
+
 export default {
     data() {
         return {
             drawer: false,
             group: null,
         };
-    },
-    components:{
-        CreateCateg
     },
     computed: {
         ...mapState(["categorie", "isLoading", "isAuth", "token"]),

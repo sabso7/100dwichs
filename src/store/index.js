@@ -35,7 +35,7 @@ export default new Vuex.Store({
       photos.forEach(function(value){
         state.imgsArr.push(
           {
-            "src": "https://dodie-api.site/photos/" + value.filePath,
+            "src": "https://sabso-api.xyz/photos/" + value.filePath,
             "description": value.description,
             "id": value.id,
           }
