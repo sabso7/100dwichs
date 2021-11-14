@@ -70,7 +70,6 @@ export default new Vuex.Store({
 
     async deletePhoto({commit, dispatch},data) {
       commit("setIsLoading");
-      console.log(data);
       await api.deletePhoto(data.id);
       dispatch('getPhotos',data.idSousCateg);
     },
@@ -88,14 +87,16 @@ export default new Vuex.Store({
       commit("setAuth",localStorage.getItem('is-auth'));
     },
 
-    async createSousCateg({commit},data) {
+    async createSousCateg({commit, dispatch},data) {
       commit("setIsLoading");
       await api.createSousCateg(data);
+      dispatch('getCategorie');
     },
 
-    async deleteSousCateg({commit},data) {
+    async deleteSousCateg({commit, dispatch},data) {
       commit("setIsLoading");
       await api.deleteSousCateg(data);
+      dispatch('getCategorie');
     },
 
     async getSousCategorie({commit},data) {

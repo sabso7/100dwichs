@@ -19,7 +19,7 @@
                     <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                         <v-img class="ma-0" align="stretch" aspect-ratio="1" :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'">
                             <v-row align="end" justify="end" class="ma-1">
-                            <delete-sous-categ></delete-sous-categ>
+                            <delete-sous-categ :idSousCateg="sousCateg.id"></delete-sous-categ>
                             </v-row>
                             <template v-slot:placeholder>
                                 <v-row class="fill-height ma-0" align="center" justify="center">

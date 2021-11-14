@@ -55,9 +55,6 @@ export default {
     methods: {
         ...mapActions(["getCategorie", "getPhotos"]),
         ...mapMutations(["setIsLoading", "refresh"]),
-        getSousCategorie(event) {
-            this.sousCategorie = event;
-        },
         addPhoto(sousCateg, file) {
             let description = this.descriptionPhoto;
             this.$store.dispatch("addPhoto", {

@@ -21,8 +21,8 @@
             <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
             <router-link aria-label="avatar you are authenticate" to="/">
-                <v-avatar v-if="isAuth" @click="logout" color="grey">
-                    <v-icon dark>
+                <v-avatar size="28" v-if="isAuth" @click="logout" color="grey">
+                    <v-icon dark small>
                         mdi-account-circle
                     </v-icon>
                 </v-avatar>
