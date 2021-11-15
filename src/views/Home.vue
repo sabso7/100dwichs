@@ -1,13 +1,21 @@
 <template>
 <v-main id="home">
     <v-container style="padding:0px !important" no-gutters fluid>
-        <v-img class="banner_home" src="@/assets/banner/banner_2.jpg" lazy-src="@/assets/banner/banner_2.jpg">
-            <template v-slot:placeholder>
-                <v-row justify="center">
-                    <v-progress-circular indeterminate color="black"></v-progress-circular>
-                </v-row>
-            </template>
-        </v-img>
+        <v-row justify="start">
+            <v-col justify="center" class="pa-0 ma-0" cols="12" sm="5" md="5" lg="5">
+                <v-img  contain max-height="800" class="banner_home" src="@/assets/banner/banner_4.jpg" lazy-src="@/assets/banner/banner_4.jpg">
+                    <template v-slot:placeholder>
+                        <v-row justify="center">
+                            <v-progress-circular indeterminate color="black"></v-progress-circular>
+                        </v-row>
+                    </template>
+                </v-img>
+            </v-col>
+            <v-col cols="12" sm="4" md="4" lg="4">
+                <h1 class="title-home-img">Milles Tartines</h1>
+                <h5 class="subtitle-home-img">Pour les tartineur fous</h5>
+            </v-col>
+        </v-row>
     </v-container>
     <v-container class="home-block">
         <v-divider id="Categories"></v-divider>
@@ -22,7 +30,6 @@
 </template>
 
 <script>
-
 import Contact from '../components/Contact.vue';
 import Categorie from '../components/Categorie.vue';
 export default {
@@ -44,6 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 html {
     scroll-behavior: smooth;
 }
@@ -61,12 +69,24 @@ html {
     margin-top: 10px;
 }
 
-#title-home-img {
+.title-home-img {
     position: absolute;
     top: 38vh;
-    left: 50%;
+    left: 70%;
     transform: translate(-50%, -50%);
     margin-bottom: 200px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 6em;
+}
+
+.subtitle-home-img {
+    position: absolute;
+    top: 70vh;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 200px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.5em;
 }
 
 .img-title.md {
@@ -117,11 +137,11 @@ html {
     margin-top: 80px;
 }
 
-.banner_home{
-  position: relative;  
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.banner_home {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .rowBlockImg {

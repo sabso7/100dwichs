@@ -34,7 +34,6 @@
 
 <script>
 import {
-    mapMutations,
     mapActions,
     mapState
 } from "vuex";
@@ -54,7 +53,6 @@ export default {
     },
     methods: {
         ...mapActions(["getCategorie", "getPhotos"]),
-        ...mapMutations(["setIsLoading", "refresh"]),
         addPhoto(sousCateg, file) {
             let description = this.descriptionPhoto;
             this.$store.dispatch("addPhoto", {

@@ -57,10 +57,7 @@
         </v-list>
     </v-navigation-drawer>
 </div>
-<v-app-bar v-else id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
-    <router-link aria-label="go to home page" to="/">
-        <span class="span_logo"></span>
-    </router-link>
+<v-app-bar align="start" v-else id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
     <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
     <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
@@ -69,9 +66,11 @@
         </router-link>
     </div>
     <router-link to="/">
+        <v-btn @click="scroll('content_gallerie')" v-bind="size" text color="dark">gallerie</v-btn>
+    </router-link>
+    <router-link to="/">
         <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
     </router-link>
-    <v-spacer></v-spacer>
 </v-app-bar>
 </template>
 

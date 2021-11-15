@@ -1,9 +1,9 @@
 <template>
 <v-main>
-    <create-categ></create-categ>
+    <create-categ v-if="isAuth"></create-categ>
     <v-container v-for="categ in categorie" v-bind:key="categ.nomCategorie" :id="categ.nomCategorie">
         <v-row align="center" justify="center">
-        <delet-categ :idCateg="categ.id"></delet-categ>
+        <delet-categ v-if="isAuth" :idCateg="categ.id"></delet-categ>
         </v-row>
         <section>
             <v-row align="center" justify="center">
@@ -37,7 +37,7 @@
             </v-col>
             <v-row align="center" justify="center">
             <v-col class="d-flex child-flex" cols="4">
-                <create-sous-categ :categorie="'/api/categories/'+categ.id"></create-sous-categ>
+                <create-sous-categ v-if="isAuth" :categorie="'/api/categories/'+categ.id"></create-sous-categ>
             </v-col>
             </v-row>
         </v-row>

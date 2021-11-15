@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on, attrs }">
             <v-btn rounded aria-label="create-button" color="blue" class="ma-3" dark v-bind="attrs" v-on="on">
-                <v-icon class="icon">mdi-plus</v-icon>
+                <v-icon class="icon">mdi-plus</v-icon> Ajouter une Catégorie
             </v-btn>
         </template>
         <v-card>
