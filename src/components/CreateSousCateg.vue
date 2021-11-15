@@ -1,6 +1,6 @@
 <template>
 <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialog" width="900">
         <template v-slot:activator="{ on, attrs }">
             <v-btn aria-label="create-button" color="red" dark v-bind="attrs" v-on="on">
                 <v-icon class="icon">mdi-plus</v-icon>
@@ -13,13 +13,37 @@
                     <validation-observer ref="observer">
                         <form id="form_souscateg">
                             <validation-provider v-slot="{ errors }" names="souscateg" rules="required">
-                                <v-text-field v-model="souscateg" :error-messages="errors" label="Sous-Catégorie" required></v-text-field>
+                                <v-text-field v-model="souscateg" :error-messages="errors" label="Titre" required></v-text-field>
                             </validation-provider>
                             <br>
                             <validation-provider v-slot="{ errors }" names="description" rules="required">
                                 <v-textarea v-model="description" :error-messages="errors" label="Description" required></v-textarea>
                             </validation-provider>
                             <br>
+                            <v-row justify="center">
+                                <h3 class="ma-3">liste des ingrédients</h3>
+                            </v-row>
+                            <v-row v-for="(ingredients,index) in listIngredients" v-bind:key="index">
+                                <p>{{ingredients.ingredient}}</p>
+                            </v-row>
+                            <v-text-field v-model="ingredient" :error-messages="errors" label="Ingrédient" required></v-text-field>
+                            <v-row justify="center" class="pa-8">
+                                <v-btn  color="green" @click="addIngredient">
+                                    <v-icon class="icon" color="white">mdi-plus</v-icon>
+                                </v-btn>
+                            </v-row>
+                            <v-row justify="center">
+                                <h3 class="ma-3">La recette par étapes</h3>
+                            </v-row>
+                            <v-row v-for="(etapes,index) in listEtapes" v-bind:key="index">
+                                <p class="ma-3">{{etapes.numero}} - {{etapes.etape}}</p>
+                            </v-row>
+                            <v-textarea v-model="etape" :error-messages="errors" label="Etape" required></v-textarea>
+                            <v-row justify="center" class="pa-8">
+                                <v-btn  color="green" @click="addEtape">
+                                    <v-icon class="icon" color="white">mdi-plus</v-icon>
+                                </v-btn>
+                            </v-row>
                             <v-row justify="center">
                                 <v-btn  color="primary" class="mr-4" @click="submit">
                                     Create
@@ -61,7 +85,11 @@ export default {
             dialog: false,
             errors: null,
             souscateg: '',
-            description: ''
+            description: '',
+            ingredient: '',
+            listIngredients: [],
+            etape:'',
+            listEtapes: []
         }
     },
     computed: {
@@ -78,14 +106,26 @@ export default {
             let nomSousCateg = this.souscateg;
             let description = this.description;
             let categorie = this.categorie;
-            console.log(categorie)
+            let listIngredients = this.listIngredients;
+            let listEtapes = this.listEtapes;
             this.createSousCateg({
                 nomSousCateg,
                 categorie,
-                description
+                description,
+                listIngredients,
+                listEtapes
             }).then(() =>
                 this.dialog = false,
             );
+        },
+        addIngredient() {
+            let ingredient = this.ingredient;
+            this.listIngredients.push({"ingredient": ingredient});
+        },
+        addEtape() {
+            let etape = this.etape;
+            let numero = this.listEtapes.length + 1;
+            this.listEtapes.push({"etape": etape, "numero": numero});
         }
     }
 }
