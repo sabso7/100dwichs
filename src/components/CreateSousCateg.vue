@@ -24,28 +24,35 @@
                                 <h3 class="ma-3">liste des ingrédients</h3>
                             </v-row>
                             <v-row v-for="(ingredients,index) in listIngredients" v-bind:key="index">
-                                <p>{{ingredients.ingredient}}</p>
+                                <p>{{ingredients.quantite}}  {{ingredients.ingredient}}</p>
                             </v-row>
-                            <v-text-field v-model="ingredient" :error-messages="errors" label="Ingrédient" required></v-text-field>
+                            <v-row>
+                                <v-col cols="4">
+                                    <v-text-field v-model="quantite" :error-messages="errors" label="quantite" required></v-text-field>
+                                </v-col>
+                                <v-col cols="8">
+                                    <v-text-field v-model="ingredient" :error-messages="errors" label="Ingrédient" required></v-text-field>
+                                </v-col>
+                            </v-row>
                             <v-row justify="center" class="pa-8">
-                                <v-btn  color="green" @click="addIngredient">
+                                <v-btn color="green" @click="addIngredient">
                                     <v-icon class="icon" color="white">mdi-plus</v-icon>
                                 </v-btn>
                             </v-row>
                             <v-row justify="center">
                                 <h3 class="ma-3">La recette par étapes</h3>
                             </v-row>
-                            <v-row v-for="(etapes,index) in listEtapes" v-bind:key="index">
+                            <v-row v-for="etapes in listEtapes" v-bind:key="etapes.etape">
                                 <p class="ma-3">{{etapes.numero}} - {{etapes.etape}}</p>
                             </v-row>
                             <v-textarea v-model="etape" :error-messages="errors" label="Etape" required></v-textarea>
                             <v-row justify="center" class="pa-8">
-                                <v-btn  color="green" @click="addEtape">
+                                <v-btn color="green" @click="addEtape">
                                     <v-icon class="icon" color="white">mdi-plus</v-icon>
                                 </v-btn>
                             </v-row>
                             <v-row justify="center">
-                                <v-btn  color="primary" class="mr-4" @click="submit">
+                                <v-btn color="primary" class="mr-4" @click="submit">
                                     Create
                                 </v-btn>
                             </v-row>
@@ -87,8 +94,9 @@ export default {
             souscateg: '',
             description: '',
             ingredient: '',
+            quantite: '',
             listIngredients: [],
-            etape:'',
+            etape: '',
             listEtapes: []
         }
     },
@@ -120,12 +128,20 @@ export default {
         },
         addIngredient() {
             let ingredient = this.ingredient;
-            this.listIngredients.push({"ingredient": ingredient});
+            let quantite = this.quantite;
+
+            this.listIngredients.push({
+                "ingredient": ingredient,
+                "quantite": quantite
+            });
         },
         addEtape() {
             let etape = this.etape;
             let numero = this.listEtapes.length + 1;
-            this.listEtapes.push({"etape": etape, "numero": numero});
+            this.listEtapes.push({
+                "etape": etape,
+                "numero": numero
+            });
         }
     }
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 class OnSetApi{
     constructor() {
@@ -110,13 +111,28 @@ class OnSetApi{
             }
           })
         .then(({ data }) => {
-          console.log(data.token);
-
           if(data.token){
             localStorage.setItem('user-token', data.token),localStorage.setItem('is-auth', true)
+            let user = jwt_decode(localStorage.getItem('user-token'));
+            let fullInfoUser = this.getUser(user.username);
+            console.log(data.token);
+            console.log(fullInfoUser);
           }
         })
         .catch(error =>{ return error});
+    }
+
+    async getUser(email) {
+      console.log(email);
+      return await this.api
+        .get("/api/users?email=" + email,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
+        })
+        .then(({ data }) => data)
+        .catch(error => console.log(error));
     }
 
     async createSousCateg(data) {
@@ -125,7 +141,9 @@ class OnSetApi{
           {
             nomSouscategorie: data.nomSousCateg,
             typeCategorie: data.categorie,
-            description: data.description
+            description: data.description,
+            ingredients: data.listIngredients,
+            recettes: data.listEtapes,
           },{
             headers: {
               'Content-Type': 'application/json',

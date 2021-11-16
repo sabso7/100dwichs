@@ -3,7 +3,7 @@
     <create-categ v-if="isAuth"></create-categ>
     <v-container v-for="categ in categorie" v-bind:key="categ.nomCategorie" :id="categ.nomCategorie">
         <v-row align="center" justify="center">
-        <delet-categ v-if="isAuth" :idCateg="categ.id"></delet-categ>
+            <delet-categ v-if="isAuth" :idCateg="categ.id"></delet-categ>
         </v-row>
         <section>
             <v-row align="center" justify="center">
@@ -14,31 +14,39 @@
             </v-row>
         </section>
         <v-row class="rowBlockImg">
-            <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie" class="d-flex child-flex" cols="6" sm="6" md="4" lg="4">
-                <v-hover v-slot="{ hover }">
-                    <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                        <v-img class="ma-0" align="stretch" aspect-ratio="1" :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'">
-                            <v-row align="end" justify="end" class="ma-1">
-                            <delete-sous-categ :idSousCateg="sousCateg.id"></delete-sous-categ>
-                            </v-row>
-                            <template v-slot:placeholder>
-                                <v-row class="fill-height ma-0" align="center" justify="center">
-                                    <v-progress-circular indeterminate color="black"></v-progress-circular>
+            <v-col v-for="sousCateg in categ.sousCategories" v-bind:key="sousCateg.nomSouscategorie" class="d-flex child-flex" cols="6" sm="6" md="6" lg="6">
+                <v-col cols="6">
+                    <v-hover v-slot="{ hover }">
+                        <v-card :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                            <v-img class="ma-0" align="stretch" aspect-ratio="1" :src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'" :lazy-src="sousCateg.photos.length !== 0 ? 'https://sabso-api.xyz/photos/'+sousCateg.photos[0].filePath : 'https://picsum.photos/id/11/100/60'">
+                                <v-row align="end" justify="end" class="ma-1">
+                                    <delete-sous-categ :idSousCateg="sousCateg.id"></delete-sous-categ>
                                 </v-row>
-                            </template>
-                            <v-row class="block_btn_img_home" :class="$mq" align="center" justify="space-around">
-                                <v-btn :to="'/galerie/'+sousCateg.nomSouscategorie+'/'+sousCateg.id" :class="{ 'show-btns': hover }" :color="transparent" text>
-                                    <h2 style="font-size:30px">{{sousCateg.nomSouscategorie}}</h2>
-                                </v-btn>
-                            </v-row>
-                        </v-img>
-                    </v-card>
-                </v-hover>
+                                <template v-slot:placeholder>
+                                    <v-row class="fill-height ma-0" align="center" justify="center">
+                                        <v-progress-circular indeterminate color="black"></v-progress-circular>
+                                    </v-row>
+                                </template>
+                            </v-img>
+                        </v-card>
+                    </v-hover>
+                </v-col>
+                <v-col cols="6">
+                    <v-row justify="center" class="pa-5">
+                        <h4>{{sousCateg.nomSouscategorie}}</h4>
+                    </v-row>
+                    <v-row justify="center" class="pa-5">
+                        <p>{{sousCateg.description}}</p>
+                    </v-row>
+                    <v-row justify="center" class="pa-2">
+                        <p>Voir la recette</p>
+                    </v-row>
+                </v-col>
             </v-col>
             <v-row align="center" justify="center">
-            <v-col class="d-flex child-flex" cols="4">
-                <create-sous-categ v-if="isAuth" :categorie="'/api/categories/'+categ.id"></create-sous-categ>
-            </v-col>
+                <v-col class="d-flex child-flex" cols="4">
+                    <create-sous-categ v-if="isAuth" :categorie="'/api/categories/'+categ.id"></create-sous-categ>
+                </v-col>
             </v-row>
         </v-row>
     </v-container>

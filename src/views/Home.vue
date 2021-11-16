@@ -13,7 +13,7 @@
             </v-col>
             <v-col cols="12" sm="4" md="4" lg="4">
                 <h1 class="title-home-img">Milles Tartines</h1>
-                <h5 class="subtitle-home-img">Pour les tartineur fous</h5>
+                <h5 class="subtitle-home-img">pour ke florianne ell soie comptenteu</h5>
             </v-col>
         </v-row>
     </v-container>
