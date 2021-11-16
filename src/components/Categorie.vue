@@ -38,6 +38,12 @@
                     <v-row justify="center" class="pa-5">
                         <p>{{sousCateg.description}}</p>
                     </v-row>
+                    <v-row justify="center" class="pa-5">
+                        <p>{{sousCateg.owner.pseudo}}</p>
+                    </v-row>
+                    <v-row justify="center" class="pa-5">
+                        <p>{{sousCateg}}</p>
+                    </v-row>
                     <v-row justify="center" class="pa-2">
                         <p>Voir la recette</p>
                     </v-row>

@@ -47,26 +47,6 @@ class OnSetApi{
         .catch(error => console.log(error));
     }
 
-    async addPhoto(dataForm) {
-
-      let formData = new FormData();
-
-      formData.append("file", dataForm.file);
-      formData.append("description", dataForm.description);
-      
-      return await this.api
-        .post("/api/photos",formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
-          }
-        })
-        .then(({ data }) => this.updatePhoto(data.id,dataForm.sousCateg))
-        .catch(error =>{
-          console.log(error);
-        })
-    }
-
     async deletePhoto(id) {
       return await this.api
         .delete("/api/photos/" + id,{
@@ -75,27 +55,6 @@ class OnSetApi{
           'Authorization': 'Bearer ' + localStorage.getItem('user-token')
           }
         })
-        .catch(error => console.log(error));
-    }
-
-    async updatePhoto(id,idSouscategorie) {
-      return await this.api
-        .put("/api/photos/" + id, {
-          'photoSouscategorie': "/api/sous_categories/" + idSouscategorie
-        },{
-          headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('user-token')
-          }
-        })
-        .then(({ data }) => data)
-        .catch(error => console.log(error));
-    }
-    
-    async getPhotos(id) {
-      return await this.api
-        .get("/api/sous_categories/" + id)
-        .then(({ data }) => data.photos)
         .catch(error => console.log(error));
     }
 
@@ -113,17 +72,13 @@ class OnSetApi{
         .then(({ data }) => {
           if(data.token){
             localStorage.setItem('user-token', data.token),localStorage.setItem('is-auth', true)
-            let user = jwt_decode(localStorage.getItem('user-token'));
-            let fullInfoUser = this.getUser(user.username);
             console.log(data.token);
-            console.log(fullInfoUser);
           }
         })
         .catch(error =>{ return error});
     }
 
     async getUser(email) {
-      console.log(email);
       return await this.api
         .get("/api/users?email=" + email,{
           headers: {
@@ -135,25 +90,61 @@ class OnSetApi{
         .catch(error => console.log(error));
     }
 
-    async createSousCateg(data) {
+    async createSousCateg(dataForm) {
+      let user = jwt_decode(localStorage.getItem('user-token'));
+      let fullUser = this.getUser(user.username);
+      fullUser = await fullUser;
       return await this.api
         .post("/api/sous_categories",
           {
-            nomSouscategorie: data.nomSousCateg,
-            typeCategorie: data.categorie,
-            description: data.description,
-            ingredients: data.listIngredients,
-            recettes: data.listEtapes,
+            nomSouscategorie: dataForm.nomSousCateg,
+            typeCategorie: dataForm.categorie,
+            description: dataForm.description,
+            ingredients: dataForm.listIngredients,
+            recettes: dataForm.listEtapes,
+            owner: '/api/users/' + fullUser[0].id
           },{
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + localStorage.getItem('user-token')
             }
           })
-        .then(({ data }) => {data})
+        .then(({ data }) => {
+          if(dataForm.photo !== ''){
+            this.addPhoto(dataForm,data);
+          }
+        })
         .catch(error =>{ return error});
     }
 
+    async addPhoto(dataForm,data) {
+
+      let formData = new FormData();
+
+      formData.append("file", dataForm.photo);
+      formData.append("description", dataForm.description);
+      formData.append("photoSouscategorie",data.id)
+      
+      return await this.api
+        .post("/api/photos",formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
+        })
+        .then(({ data }) => data)
+        .catch(error =>{
+          console.log(error);
+        })
+    }
+
+    async getPhotos(id) {
+      return await this.api
+        .get("/api/sous_categories/" + id)
+        .then(({ data }) => data.photos)
+        .catch(error => console.log(error));
+    }
+  
     async deleteSousCateg(id) {
       return await this.api
         .delete("/api/sous_categories/" + id.idSousCateg,{

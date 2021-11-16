@@ -24,7 +24,7 @@
                                 <h3 class="ma-3">liste des ingrédients</h3>
                             </v-row>
                             <v-row v-for="(ingredients,index) in listIngredients" v-bind:key="index">
-                                <p>{{ingredients.quantite}}  {{ingredients.ingredient}}</p>
+                                <p>{{ingredients.quantite}} {{ingredients.ingredient}}</p>
                             </v-row>
                             <v-row>
                                 <v-col cols="4">
@@ -51,6 +51,11 @@
                                     <v-icon class="icon" color="white">mdi-plus</v-icon>
                                 </v-btn>
                             </v-row>
+                            <v-container class="champ-form">
+                                <v-file-input v-model="file" label="File input" accept="image/*" filled prepend-icon="mdi-camera"></v-file-input>
+                                <br>
+                                <v-textarea v-model="descriptionPhoto" label="descriptionPhoto" required></v-textarea>
+                            </v-container>
                             <v-row justify="center">
                                 <v-btn color="primary" class="mr-4" @click="submit">
                                     Create
@@ -97,7 +102,9 @@ export default {
             quantite: '',
             listIngredients: [],
             etape: '',
-            listEtapes: []
+            listEtapes: [],
+            file: null,
+            descriptionPhoto: '',
         }
     },
     computed: {
@@ -116,12 +123,16 @@ export default {
             let categorie = this.categorie;
             let listIngredients = this.listIngredients;
             let listEtapes = this.listEtapes;
+            let photo = this.file;
+            let descriptionPhoto = this.descriptionPhoto;
             this.createSousCateg({
                 nomSousCateg,
                 categorie,
                 description,
                 listIngredients,
-                listEtapes
+                listEtapes,
+                photo,
+                descriptionPhoto
             }).then(() =>
                 this.dialog = false,
             );
@@ -142,6 +153,13 @@ export default {
                 "etape": etape,
                 "numero": numero
             });
+        }
+    },
+    watch: {
+        file(newValue) {
+            if (newValue.size > (8000000)) {
+                alert("photo trop grosse")
+            }
         }
     }
 }
