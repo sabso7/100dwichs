@@ -12,8 +12,8 @@
                 </v-img>
             </v-col>
             <v-col cols="12" sm="4" md="4" lg="4">
-                <h1 class="title-home-img">Milles Tartines</h1>
-                <h5 class="subtitle-home-img">pour ke florianne ell soie comptenteu</h5>
+                <h1 class="title-home-img font-comfortaa">Milles Tartines</h1>
+                <h5 class="subtitle-home-img font-comfortaa">pour ke florianne ell soie comptenteu</h5>
             </v-col>
         </v-row>
     </v-container>
@@ -51,7 +51,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 html {
     scroll-behavior: smooth;
 }
@@ -75,7 +74,6 @@ html {
     left: 70%;
     transform: translate(-50%, -50%);
     margin-bottom: 200px;
-    font-family: 'Comfortaa', cursive;
     font-size: 6em;
 }
 
@@ -85,7 +83,6 @@ html {
     left: 70%;
     transform: translate(-50%, -50%);
     margin-bottom: 200px;
-    font-family: 'Comfortaa', cursive;
     font-size: 1.5em;
 }
 

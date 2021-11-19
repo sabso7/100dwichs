@@ -101,11 +101,6 @@ export default new Vuex.Store({
 
     async getSousCategorie({commit},data) {
       commit("setIsLoading");
-      if(data.file.size > (8000000)){
-        commit("setError", 'Fichier trop volumineux !');
-      }else{
-        commit("setError", null);
-      }
       const sousCategorie = await api.getSousCategorie(data);
       commit("setSousCategorie", sousCategorie);
     },

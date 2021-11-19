@@ -23,8 +23,10 @@
                             <v-row justify="center">
                                 <h3 class="ma-3">liste des ingrédients</h3>
                             </v-row>
-                            <v-row v-for="(ingredients,index) in listIngredients" v-bind:key="index">
-                                <p>{{ingredients.quantite}} {{ingredients.ingredient}}</p>
+                            <v-row v-for="ingredients in listIngredients" v-bind:key="ingredients.ingredient">
+                                <p class="ml-6">{{ingredients.quantite}} {{ingredients.ingredient}}</p>
+                                <v-spacer></v-spacer>
+                                <v-icon justify="end" class="icon mr-6" color="red" @click="deleteIngredient(ingredients.ingredient)">mdi-minus-circle</v-icon>
                             </v-row>
                             <v-row>
                                 <v-col cols="4">
@@ -44,6 +46,8 @@
                             </v-row>
                             <v-row v-for="etapes in listEtapes" v-bind:key="etapes.etape">
                                 <p class="ma-3">{{etapes.numero}} - {{etapes.etape}}</p>
+                                <v-spacer></v-spacer>
+                                <v-icon justify="end" class="icon mr-6" color="red" @click="deleteEtape(etapes.etape)">mdi-minus-circle</v-icon>
                             </v-row>
                             <v-textarea v-model="etape" :error-messages="errors" label="Etape" required></v-textarea>
                             <v-row justify="center" class="pa-8">
@@ -145,6 +149,21 @@ export default {
                 "ingredient": ingredient,
                 "quantite": quantite
             });
+        },
+        deleteIngredient(ingred) {
+            const array = this.listIngredients;
+            var index = array.findIndex( item => item.ingredient === ingred);
+            if (index > -1) {
+                array.splice(index, 1);
+            }
+        },
+        deleteEtape(etape) {
+            const array = this.listEtapes;
+            var index = array.findIndex( item => item.etape === etape);
+            if (index > -1) {
+                array.splice(index, 1);
+            }
+            console.log(array);
         },
         addEtape() {
             let etape = this.etape;

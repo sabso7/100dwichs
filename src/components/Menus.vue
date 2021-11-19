@@ -5,11 +5,6 @@
             <v-col cols="3" id="icon_drawer" align="center">
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             </v-col>
-            <v-col>
-                <router-link aria-label="go to home page" to="/">
-                   Home
-                </router-link>
-            </v-col>
         </v-row>
         <v-row>
             <v-col id="dividerSmallBar">

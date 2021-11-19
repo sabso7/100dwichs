@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Photo from '../views/Photo.vue'
+import Recette from '../views/Recette.vue'
 import Backoffice from '../views/Backoffice.vue'
 
 Vue.use(VueRouter)
@@ -24,7 +25,13 @@ const routes = [
     name: 'Backoffice',
     component: Backoffice,
     meta: { scrollToTop: true }
-  }
+  },
+  {
+    path: '/recette/:id',
+    name: 'Recette',
+    component: Recette,
+    meta: { scrollToTop: true }
+  },
 ]
 
 const router = new VueRouter({

@@ -61,6 +61,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
 .block-gallery {
     position: absolute;
     top: 80px;
@@ -84,6 +86,10 @@ export default {
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+.font-comfortaa{
+    font-family: 'Comfortaa', cursive !important;
 }
 
 .scrollMenu{
