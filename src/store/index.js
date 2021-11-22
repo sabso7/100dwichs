@@ -13,6 +13,7 @@ export default new Vuex.Store({
     imgsArr: [],
     token: localStorage.getItem('user-token') || '',
     isAuth: localStorage.getItem('is-auth') || false,
+    listUser: null,
     error: null,
   },
   mutations: {
@@ -46,6 +47,10 @@ export default new Vuex.Store({
     },
     setSousCategorie(state, sousCategorie){
       state.sousCategorie = sousCategorie;
+      state.isLoading = false;
+    },
+    setListUser(state, listUser){
+      state.listUser = listUser;
       state.isLoading = false;
     },
   },
@@ -108,6 +113,7 @@ export default new Vuex.Store({
     async getCategorie({commit}) {
       commit("setIsLoading");
       const categorie = await api.getCategories();
+      console.log(categorie);
       commit("setCategorie", categorie);
     },
 
@@ -121,6 +127,24 @@ export default new Vuex.Store({
       commit("setIsLoading");
       await api.deleteCateg(data);
       dispatch('getCategorie');
+    },
+
+    async getListUser({commit}) {
+      commit("setIsLoading");
+      const listUser = await api.getUser();
+      commit("setListUser", listUser);
+    },
+
+    async deleteUser({commit,dispatch},data) {
+      commit("setIsLoading");
+      await api.deleteUser(data);
+      dispatch("getListUser");
+    },
+
+    async createUser({commit, dispatch},data) {
+      commit("setIsLoading");
+      await api.createUser(data).then(setTimeout(() => dispatch("login",data), 3500)).then(dispatch("getCategorie"));
+      
     },
 
   },

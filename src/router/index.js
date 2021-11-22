@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Photo from '../views/Photo.vue'
 import Recette from '../views/Recette.vue'
 import Backoffice from '../views/Backoffice.vue'
+import Login from '../views/Login.vue';
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,12 @@ const routes = [
     path: '/backoffice',
     name: 'Backoffice',
     component: Backoffice,
+    meta: { scrollToTop: true }
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
     meta: { scrollToTop: true }
   },
   {

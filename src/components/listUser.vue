@@ -34,6 +34,7 @@
                 </tbody>
             </template>
         </v-simple-table>
+        <create-user></create-user>
     </v-card>
 </v-container>
 </template>
@@ -44,6 +45,7 @@ import {
     mapActions
 } from "vuex";
 import deleteUser from '../components/DeleteUser.vue';
+import CreateUser from './CreateUser.vue';
 export default {
     data() {
         return {
@@ -51,7 +53,8 @@ export default {
         }
     },
     components: {
-        deleteUser
+        deleteUser,
+        CreateUser
     },
     computed: {
         ...mapState(["listUser", "isLoading"]),

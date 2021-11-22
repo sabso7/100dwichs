@@ -43,6 +43,15 @@
                         </router-link>
                     </v-list-item-title>
                 </v-list-item>
+                <v-list-item>
+                    <router-link aria-label="avatar you are authenticate" to="/">
+                        <v-avatar size="28" v-if="isAuth" @click="logout" color="grey">
+                            <v-icon dark small>
+                                mdi-account-circle
+                            </v-icon>
+                        </v-avatar>
+                    </router-link>
+                </v-list-item>
             </v-list-item-group>
         </v-list>
     </v-navigation-drawer>
@@ -50,16 +59,30 @@
 <v-app-bar align="start" v-else id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
     <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
-    <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-        <router-link to="/">
-            <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
-        </router-link>
-    </div>
+    <v-menu v-if="categorie" offset-y v-bind:key="categorie.index">
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn text color="dark" v-bind="attrs" v-on="on">
+                Les tartines
+            </v-btn>
+        </template>
+        <v-list>
+            <v-list-item v-for="(cat,index) in categorie" v-bind:key="index">
+                <v-btn text color="dark" @click="scroll(cat.nomCategorie)" v-bind="size">{{cat.nomCategorie}}</v-btn>
+            </v-list-item>
+        </v-list>
+    </v-menu>
     <router-link to="/">
         <v-btn @click="scroll('content_gallerie')" v-bind="size" text color="dark">gallerie</v-btn>
     </router-link>
     <router-link to="/">
         <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
+    </router-link>
+    <router-link aria-label="avatar you are authenticate" to="/">
+        <v-avatar size="28" v-if="isAuth" color="grey">
+            <v-icon dark small>
+                mdi-account-circle
+            </v-icon>
+        </v-avatar>
     </router-link>
 </v-app-bar>
 </template>
@@ -149,8 +172,7 @@ export default {
     padding: 0px !important;
 }
 
-#icon_drawer{
-    padding-top: 30px ;
+#icon_drawer {
+    padding-top: 30px;
 }
-
 </style>

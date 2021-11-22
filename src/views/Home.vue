@@ -1,9 +1,9 @@
 <template>
 <v-main id="home">
-    <v-container style="padding:0px !important" no-gutters fluid>
-        <v-row justify="start">
+    <v-container style="padding:0px !important" class="parallax" no-gutters fluid>
+        <v-row>
             <v-col justify="center" class="pa-0 ma-0" cols="12" sm="5" md="5" lg="5">
-                <v-img  contain max-height="800" class="banner_home" src="@/assets/banner/banner_4.jpg" lazy-src="@/assets/banner/banner_4.jpg">
+                <v-img contain class="home-img" src="@/assets/banner/banner_4.jpg" lazy-src="@/assets/banner/banner_4.jpg">
                     <template v-slot:placeholder>
                         <v-row justify="center">
                             <v-progress-circular indeterminate color="black"></v-progress-circular>
@@ -12,12 +12,16 @@
                 </v-img>
             </v-col>
             <v-col cols="12" sm="4" md="4" lg="4">
-                <h1 class="title-home-img font-comfortaa">Milles Tartines</h1>
-                <h5 class="subtitle-home-img font-comfortaa">pour ke florianne ell soie comptenteu</h5>
+                <h1 class="title-home font-comfortaa">Milles Tartines</h1>
+                <div class="subtitle-home">
+                    <info-site></info-site>
+                </div>
             </v-col>
         </v-row>
     </v-container>
     <v-container class="home-block">
+        <v-divider id="infoSite"></v-divider>
+        <compteur></compteur>
         <v-divider id="Categories"></v-divider>
         <categorie></categorie>
         <v-divider id="content_contact"></v-divider>
@@ -32,6 +36,8 @@
 <script>
 import Contact from '../components/Contact.vue';
 import Categorie from '../components/Categorie.vue';
+import InfoSite from '../components/InfoSite.vue';
+import Compteur from '../components/Compteur.vue';
 export default {
     data() {
         return {
@@ -40,9 +46,12 @@ export default {
     },
     components: {
         Categorie,
-        Contact
+        Contact,
+        InfoSite,
+        Compteur,
     },
     methods: {
+
         scrollToTop: function () {
             window.scrollTo(0, 0);
         },
@@ -68,7 +77,7 @@ html {
     margin-top: 10px;
 }
 
-.title-home-img {
+.title-home {
     position: absolute;
     top: 38vh;
     left: 70%;
@@ -77,7 +86,7 @@ html {
     font-size: 6em;
 }
 
-.subtitle-home-img {
+.subtitle-home {
     position: absolute;
     top: 70vh;
     left: 70%;
@@ -86,62 +95,7 @@ html {
     font-size: 1.5em;
 }
 
-.img-title.md {
-    max-width: 500px;
-    max-height: 500px;
-}
-
-.img-title.lg {
-    max-width: 500px;
-    max-height: 500px;
-}
-
-.img-title.sm {
-    max-width: 350px;
-    max-height: 200px;
-    position: absolute;
-    top: 50vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#home-banner-title-sm {
-    margin-top: 110px !important;
-}
-
-.btn-galerie {
-    margin-top: 20px;
-}
-
-#home-banner-title {
-    margin-top: 150px;
-    margin-bottom: 70px;
-}
-
-.home-block {
-    padding-top: 5%;
-}
-
-#arrow-homepage {
-    padding-bottom: 20px;
-}
-
-.block_btn_img_home.lg {
-    margin-top: 150px;
-}
-
-.block_btn_img_home.sm {
-    margin-top: 80px;
-}
-
-.banner_home {
-    position: relative;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.rowBlockImg {
-    padding: 10px;
+.home-img {
+    height: 100%;
 }
 </style>

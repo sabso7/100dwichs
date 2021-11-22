@@ -59,11 +59,12 @@ class OnSetApi{
     }
 
     async login(userData) {
+      console.log(userData);
       return await this.api
         .post("/authentication_token",
           {
-            'email': userData.emailInput,
-            'password': userData.passwordInput
+            'email': userData.email,
+            'password': userData.password
           },{
             headers: {
               'Content-Type': 'application/json'
@@ -79,8 +80,12 @@ class OnSetApi{
     }
 
     async getUser(email) {
+      let request = '';
+      if(email){
+         request = "?email=" + email;
+      }
       return await this.api
-        .get("/api/users?email=" + email,{
+        .get("/api/users" + request,{
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('user-token')
@@ -88,6 +93,31 @@ class OnSetApi{
         })
         .then(({ data }) => data)
         .catch(error => console.log(error));
+    }
+
+    async deleteUser(id) {
+      return await this.api
+        .delete("/api/users/" + id.idUser,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
+          }
+        })  
+        .catch(error => console.log(error));
+    }
+
+    async createUser(data) {
+      return await this.api
+        .post("/api/users",
+          {
+            email: data.email,
+            password: data.password,
+            pseudo: data.pseudo,
+            description: data.description
+          }
+          )
+        .then(({ data }) => {data})
+        .catch(error =>{ return error});
     }
 
     async createSousCateg(dataForm) {

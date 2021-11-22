@@ -7,7 +7,7 @@
         </v-row>
         <section>
             <v-row align="center" justify="center">
-                <div style="padding:20px" class="overline text-h5 text-sm-h5 mb-4 font-comfortaa">{{categ.nomCategorie}}</div>
+                <h2 class="mb-4 font-comfortaa">{{categ.nomCategorie}}</h2>
             </v-row>
             <v-row align="center" justify="center">
                 <p class="font-weight-light text-home-page">{{categ.description}}</p>
@@ -89,7 +89,7 @@ export default {
         CreateSousCateg,
         CreateCateg,
         DeletCateg,
-        DeleteSousCateg
+        DeleteSousCateg,
     },
     data() {
         return {

@@ -2,8 +2,8 @@
 <div class="text-center">
     <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn rounded aria-label="create-button" v-if="isAuth" color="blue" text dark v-bind="attrs" v-on="on">
-                <v-icon class="icon">mdi-plus</v-icon>Ajouter un utilisateur
+            <v-btn rounded aria-label="create-button" color="blue" dark v-bind="attrs" v-on="on">
+                Inscrivez-vous
             </v-btn>
         </template>
         <v-card>
@@ -23,8 +23,13 @@
                             </validation-provider>
                             <br>
                             <validation-provider v-slot="{ errors }" names="password" rules="required">
-                                <v-text-field v-model="password" :error-messages="errors" label="password" required></v-text-field>
+                                <v-text-field v-model="password" :error-messages="errors" type='password' label="password" required></v-text-field>
                             </validation-provider>
+                            <br>
+                            <validation-provider v-slot="{ errors }" names="pseudo" rules="required">
+                                <v-text-field v-model="pseudo" :error-messages="errors" label="pseudo" required></v-text-field>
+                            </validation-provider>
+                            <v-textarea v-model="description" label="description"></v-textarea>
                             <v-row justify="center">
                                 <v-btn color="primary" class="mr-4" @click="submit">
                                     Create
@@ -74,7 +79,9 @@ export default {
             }, {
                 text: 'admin',
                 value: ['ROLE_ADMIN']
-            }]
+            }],
+            description: "",
+            pseudo: ""
         }
     },
     computed: {
@@ -91,10 +98,14 @@ export default {
             let email = this.email;
             let role = this.role;
             let password = this.password;
+            let description = this.description;
+            let pseudo = this.pseudo;
             this.createUser({
                 email,
                 role,
                 password,
+                description,
+                pseudo
             }).then(() =>
                 this.dialog = false,
             );

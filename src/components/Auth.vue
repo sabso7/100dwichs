@@ -65,12 +65,12 @@ export default {
         ...mapActions(["login", "logout"]),
         submit() {
             this.$refs.observer.validate();
-            const emailInput = this.email;
-            const passwordInput = this.password;
+            const email = this.email;
+            const password = this.password;
             this.logout();
             this.login({
-                emailInput,
-                passwordInput
+                email,
+                password
             }).then(() => {
                 if (localStorage.getItem('is-auth')) {
                     this.errors = null;

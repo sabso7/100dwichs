@@ -18,7 +18,6 @@ export default {
     methods: {
         ...mapActions(["deleteUser"]),
         clickDeleteUser: function (idUser) {
-            console.log(idUser)
             this.deleteUser({idUser});
         }
     },

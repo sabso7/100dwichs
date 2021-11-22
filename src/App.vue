@@ -20,6 +20,9 @@
         <v-footer color="black" absolute>
             <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
+            <router-link aria-label="go to login page" to="/backoffice">
+                <v-icon color="white">mdi-cog</v-icon>
+            </router-link>
             <router-link aria-label="avatar you are authenticate" to="/">
                 <v-avatar size="28" v-if="isAuth" @click="logout" color="grey">
                     <v-icon dark small>
@@ -27,7 +30,7 @@
                     </v-icon>
                 </v-avatar>
             </router-link>
-            <router-link aria-label="go to login page" to="/backoffice">
+            <router-link aria-label="go to login page" to="/login">
                 <v-icon color="white">mdi-lock</v-icon>
             </router-link>
         </v-footer>
