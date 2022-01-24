@@ -20,15 +20,13 @@
                         <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
                     </v-list-item-title>
                 </v-list-item>
-                <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-                    <v-list-item>
-                        <v-list-item-title>
-                            <router-link to="/">
-                                <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
-                            </router-link>
-                        </v-list-item-title>
-                    </v-list-item>
-                </div>
+                <v-list-item v-for="cat in categorie" v-bind:key="cat.nomCategorie">
+                    <v-list-item-title>
+                        <router-link to="/">
+                            <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
+                        </router-link>
+                    </v-list-item-title>
+                </v-list-item>
                 <v-list-item>
                     <v-list-item-title>
                         <router-link to="/">
@@ -56,21 +54,14 @@
         </v-list>
     </v-navigation-drawer>
 </div>
-<v-app-bar align="start" v-else id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
+<v-app-bar v-else align="start"  id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
     <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
-    <v-menu v-if="categorie" offset-y v-bind:key="categorie.index">
-        <template v-slot:activator="{ on, attrs }">
-            <v-btn text color="dark" v-bind="attrs" v-on="on">
-                Les tartines
-            </v-btn>
-        </template>
-        <v-list>
-            <v-list-item v-for="(cat,index) in categorie" v-bind:key="index">
-                <v-btn text color="dark" @click="scroll(cat.nomCategorie)" v-bind="size">{{cat.nomCategorie}}</v-btn>
-            </v-list-item>
-        </v-list>
-    </v-menu>
+    <div v-for="(cat,index) in categorie" v-bind:key="index">
+    <router-link to="/">
+        <v-btn text color="dark" @click="scroll(cat.nomCategorie)" v-bind="size">{{cat.nomCategorie}}</v-btn>
+    </router-link>
+    </div>
     <router-link to="/">
         <v-btn @click="scroll('content_gallerie')" v-bind="size" text color="dark">gallerie</v-btn>
     </router-link>
@@ -117,7 +108,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(["getCategorie"]),
+        ...mapActions(["getCategorie","getListUser"]),
         scroll: function (id) {
             if (this.$route.name === 'Home') {
                 setTimeout(document.getElementById(id).scrollIntoView({
@@ -128,6 +119,7 @@ export default {
     },
     beforeMount() {
         this.getCategorie();
+        this.getListUser();
     },
     watch: {
         group() {

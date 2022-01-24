@@ -1,32 +1,36 @@
 <template>
 <v-main id="home">
-    <v-container style="padding:0px !important" class="parallax" no-gutters fluid>
-        <v-row>
-            <v-col justify="center" class="pa-0 ma-0" cols="12" sm="5" md="5" lg="5">
-                <v-img contain class="home-img" src="@/assets/banner/banner_4.jpg" lazy-src="@/assets/banner/banner_4.jpg">
-                    <template v-slot:placeholder>
-                        <v-row justify="center">
-                            <v-progress-circular indeterminate color="black"></v-progress-circular>
-                        </v-row>
-                    </template>
-                </v-img>
-            </v-col>
-            <v-col cols="12" sm="4" md="4" lg="4">
-                <h1 class="title-home font-comfortaa">Milles Tartines</h1>
-                <div class="subtitle-home">
+    <v-container style="padding:0px !important margin:0px !important" no-gutters fluid>
+        <v-row align="center" justify="center">
+            <v-img class="home-img" src="@/assets/banner/dwich-min.png" lazy-src="@/assets/banner/dwich-min.png">
+                <v-row align="center" justify="center">
+                    <h1 class="title-home-1 font-comfortaa">100</h1>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <h1 class="title-home-2 font-comfortaa">'dwichs</h1>
+                </v-row>
+                <v-row align="center" justify="center" class="subtitle-home font-comfortaa">
                     <info-site></info-site>
-                </div>
-            </v-col>
+                </v-row>
+                <template v-slot:placeholder>
+                    <v-row justify="center">
+                        <v-progress-circular indeterminate color="black"></v-progress-circular>
+                    </v-row>
+                </template>
+            </v-img>
         </v-row>
     </v-container>
-    <v-container class="home-block">
+    <v-container>
         <v-divider id="infoSite"></v-divider>
-        <compteur></compteur>
-        <v-divider id="Categories"></v-divider>
-        <categorie></categorie>
-        <v-divider id="content_contact"></v-divider>
-        <contact></contact>
     </v-container>
+
+    <compteur></compteur>
+    <v-divider id="Categories"></v-divider>
+    <categorie></categorie>
+    <v-container>
+    <v-divider id="content_contact"></v-divider>
+    </v-container>
+    <contact></contact>
     <v-row justify="center">
         <v-icon v-on:click="scrollToTop" id="arrow-homepage" class="icon">mdi-arrow-expand-up</v-icon>
     </v-row>
@@ -51,7 +55,6 @@ export default {
         Compteur,
     },
     methods: {
-
         scrollToTop: function () {
             window.scrollTo(0, 0);
         },
@@ -77,25 +80,27 @@ html {
     margin-top: 10px;
 }
 
-.title-home {
-    position: absolute;
-    top: 38vh;
-    left: 70%;
-    transform: translate(-50%, -50%);
-    margin-bottom: 200px;
+.title-home-1 {
+    margin-top: 7%;
     font-size: 6em;
+    color: whitesmoke;
+}
+
+.title-home-2 {
+    margin-bottom: 50px;
+    font-size: 6em;
+    color: white;
 }
 
 .subtitle-home {
-    position: absolute;
-    top: 70vh;
-    left: 70%;
-    transform: translate(-50%, -50%);
     margin-bottom: 200px;
     font-size: 1.5em;
+    color: honeydew;
 }
 
 .home-img {
-    height: 100%;
+    margin-top: 3%;
+    height: 700px;
+    filter: contrast(1);
 }
 </style>

@@ -2,8 +2,8 @@
 <div class="text-center">
     <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn rounded aria-label="create-button" color="blue" dark v-bind="attrs" v-on="on">
-                Inscrivez-vous
+            <v-btn rounded aria-label="create-button" color="#80AA5E" dark v-bind="attrs" v-on="on">
+               Créer un compte
             </v-btn>
         </template>
         <v-card>

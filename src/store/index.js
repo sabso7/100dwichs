@@ -15,6 +15,8 @@ export default new Vuex.Store({
     isAuth: localStorage.getItem('is-auth') || false,
     listUser: null,
     error: null,
+    counterCateg: 0,
+    counterUser: 0
   },
   mutations: {
     setCategorie(state, categorie){
@@ -51,6 +53,14 @@ export default new Vuex.Store({
     },
     setListUser(state, listUser){
       state.listUser = listUser;
+      state.isLoading = false;
+    },
+    setCounterCateg(state, count){
+      state.counterCateg = count;
+      state.isLoading = false;
+    },
+    setCounterUser(state, count){
+      state.counterUser = count;
       state.isLoading = false;
     },
   },
@@ -113,7 +123,9 @@ export default new Vuex.Store({
     async getCategorie({commit}) {
       commit("setIsLoading");
       const categorie = await api.getCategories();
-      console.log(categorie);
+      let counterCateg = 0;
+      categorie.forEach(elmt => counterCateg += elmt.sousCategories.length);
+      commit("setCounterCateg", counterCateg);
       commit("setCategorie", categorie);
     },
 
@@ -132,6 +144,8 @@ export default new Vuex.Store({
     async getListUser({commit}) {
       commit("setIsLoading");
       const listUser = await api.getUser();
+      let counterUser = listUser.length;
+      commit("setCounterUser", counterUser);
       commit("setListUser", listUser);
     },
 

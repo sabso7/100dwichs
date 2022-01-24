@@ -85,12 +85,8 @@ class OnSetApi{
          request = "?email=" + email;
       }
       return await this.api
-        .get("/api/users" + request,{
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('user-token')
-          }
-        })
+        .get("/api/users" + request
+        )
         .then(({ data }) => data)
         .catch(error => console.log(error));
     }
