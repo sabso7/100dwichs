@@ -5,7 +5,7 @@
    </v-row>
    <v-row justify="center">
        <create-user></create-user>
-        <v-btn rounded aria-label="create-button" class="ml-8" color="#A48D79" dark>
+        <v-btn rounded aria-label="create-button" class="ml-8" color="#A48D79" dark to="/login">
                se connecter
         </v-btn>
    </v-row>

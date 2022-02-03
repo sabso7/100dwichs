@@ -21,7 +21,7 @@
                         </v-container>
                         <v-card-actions>
                             <v-row align="center" justify="center">
-                                <v-btn color="primary" class="mr-4" type="submit" @click="dialog = false">Ajouter</v-btn>
+                                <v-btn color="#80AA5E" dark class="mr-4" type="submit" @click="dialog = false">Ajouter</v-btn>
                             </v-row>
                         </v-card-actions>
                     </v-form>

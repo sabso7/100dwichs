@@ -61,7 +61,7 @@
                                 <v-textarea v-model="descriptionPhoto" label="descriptionPhoto" required></v-textarea>
                             </v-container>
                             <v-row justify="center">
-                                <v-btn color="primary" class="mr-4" @click="submit">
+                                <v-btn color="#80AA5E" dark class="mr-4" @click="submit">
                                     Create
                                 </v-btn>
                             </v-row>

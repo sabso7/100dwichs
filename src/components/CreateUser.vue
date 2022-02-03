@@ -31,7 +31,7 @@
                             </validation-provider>
                             <v-textarea v-model="description" label="description"></v-textarea>
                             <v-row justify="center">
-                                <v-btn color="primary" class="mr-4" @click="submit">
+                                <v-btn color="#80AA5E" dark class="mr-4" @click="submit">
                                     Create
                                 </v-btn>
                             </v-row>
