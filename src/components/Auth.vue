@@ -1,21 +1,23 @@
 <template>
-<validation-observer ref="observer">
-    <form>
-        <v-alert dense outlined type="error" v-if="errors !== null">{{ errors }} </v-alert>
-        <validation-provider v-slot="{ errors }" name="email" rules="required|email">
-            <v-text-field v-model="email" :error-messages="errors" label="E-mail" required></v-text-field>
-        </validation-provider>
-        <validation-provider v-slot="{ errors }" name="Password" rules="required">
-            <v-text-field v-model="password" :error-messages="errors" type='password' label="Password" required></v-text-field>
-        </validation-provider>
-        <br>
-        <v-row justify="center">
-            <v-btn class="mr-4" @click="submit">
-                valider
-            </v-btn>
-        </v-row>
-    </form>
-</validation-observer>
+
+    <validation-observer ref="observer">
+        <form>
+            <v-alert dense outlined type="error" v-if="errors !== null">{{ errors }} </v-alert>
+            <validation-provider v-slot="{ errors }" name="email" rules="required|email">
+                <v-text-field v-model="email" :error-messages="errors" label="E-mail" required></v-text-field>
+            </validation-provider>
+            <validation-provider v-slot="{ errors }" name="Password" rules="required">
+                <v-text-field v-model="password" :error-messages="errors" type='password' label="Password" required></v-text-field>
+            </validation-provider>
+            <br>
+            <v-row justify="center">
+                <v-btn class="mr-4" color="#80AA5E" dark @click="submit">
+                    valider
+                </v-btn>
+            </v-row>
+        </form>
+    </validation-observer>
+
 </template>
 
 <script>
@@ -65,12 +67,12 @@ export default {
         ...mapActions(["login", "logout"]),
         submit() {
             this.$refs.observer.validate();
-            const emailInput = this.email;
-            const passwordInput = this.password;
+            const email = this.email;
+            const password = this.password;
             this.logout();
             this.login({
-                emailInput,
-                passwordInput
+                email,
+                password
             }).then(() => {
                 if (localStorage.getItem('is-auth')) {
                     this.errors = null;

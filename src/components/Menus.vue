@@ -5,12 +5,6 @@
             <v-col cols="3" id="icon_drawer" align="center">
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             </v-col>
-            <v-col>
-                <router-link aria-label="go to home page" to="/">
-                    <v-img id="logoNavBarSmall" src="@/assets/logos/logo-2.png">
-                    </v-img>
-                </router-link>
-            </v-col>
         </v-row>
         <v-row>
             <v-col id="dividerSmallBar">
@@ -26,15 +20,13 @@
                         <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
                     </v-list-item-title>
                 </v-list-item>
-                <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-                    <v-list-item>
-                        <v-list-item-title>
-                            <router-link to="/">
-                                <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
-                            </router-link>
-                        </v-list-item-title>
-                    </v-list-item>
-                </div>
+                <v-list-item v-for="cat in categorie" v-bind:key="cat.nomCategorie">
+                    <v-list-item-title>
+                        <router-link to="/">
+                            <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
+                        </router-link>
+                    </v-list-item-title>
+                </v-list-item>
                 <v-list-item>
                     <v-list-item-title>
                         <router-link to="/">
@@ -49,28 +41,40 @@
                         </router-link>
                     </v-list-item-title>
                 </v-list-item>
+                <v-list-item>
+                    <router-link aria-label="avatar you are authenticate" to="/">
+                        <v-avatar size="28" v-if="isAuth" @click="logout" color="grey">
+                            <v-icon dark small>
+                                mdi-account-circle
+                            </v-icon>
+                        </v-avatar>
+                    </router-link>
+                </v-list-item>
             </v-list-item-group>
         </v-list>
     </v-navigation-drawer>
 </div>
-<v-app-bar v-else id="block_menu" flat color="white" fixed>
-    <router-link aria-label="go to home page" to="/">
-        <v-img id="logoNavbar" transition="slide-x-transition" src="@/assets/logos/logo-1.png"></v-img>
-    </router-link>
+<v-app-bar v-else align="start"  id="block_menu" fixed flat dense color="rgba(0, 0, 0, 0)">
     <v-spacer></v-spacer>
     <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
-    <div class="linkMenu" v-for="cat in categorie" v-bind:key="cat.nomCategorie">
-        <router-link to="/">
-            <v-btn @click="scroll(cat.nomCategorie)" text color="dark" v-bind="size">{{cat.nomCategorie}}</v-btn>
-        </router-link>
+    <div v-for="(cat,index) in categorie" v-bind:key="index">
+    <router-link to="/">
+        <v-btn text color="dark" @click="scroll(cat.nomCategorie)" v-bind="size">{{cat.nomCategorie}}</v-btn>
+    </router-link>
     </div>
     <router-link to="/">
-        <v-btn @click="scroll('content_about')" v-bind="size" text color="dark">à propos</v-btn>
+        <v-btn @click="scroll('content_gallerie')" v-bind="size" text color="dark">gallerie</v-btn>
     </router-link>
     <router-link to="/">
         <v-btn @click="scroll('content_contact')" v-bind="size" text color="dark">contact</v-btn>
     </router-link>
-    <v-spacer></v-spacer>
+    <router-link aria-label="avatar you are authenticate" to="/">
+        <v-avatar size="28" v-if="isAuth" color="grey">
+            <v-icon dark small>
+                mdi-account-circle
+            </v-icon>
+        </v-avatar>
+    </router-link>
 </v-app-bar>
 </template>
 
@@ -79,6 +83,7 @@ import {
     mapState,
     mapActions
 } from "vuex";
+
 export default {
     data() {
         return {
@@ -103,7 +108,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(["getCategorie"]),
+        ...mapActions(["getCategorie","getListUser"]),
         scroll: function (id) {
             if (this.$route.name === 'Home') {
                 setTimeout(document.getElementById(id).scrollIntoView({
@@ -114,6 +119,7 @@ export default {
     },
     beforeMount() {
         this.getCategorie();
+        this.getListUser();
     },
     watch: {
         group() {
@@ -146,6 +152,7 @@ export default {
 #navDrawer {
     max-width: 130px;
     padding-top: 80px;
+    position: absolute;
 }
 
 .littlenav {
@@ -157,7 +164,7 @@ export default {
     padding: 0px !important;
 }
 
-#icon_drawer{
-    padding-top: 30px ;
+#icon_drawer {
+    padding-top: 30px;
 }
 </style>

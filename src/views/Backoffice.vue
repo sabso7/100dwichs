@@ -2,27 +2,21 @@
 <v-main>
     <v-container id="blockAuth">
         <h1 class="text-center">BackOffice</h1>
-        <v-row>
-            <v-col offset-sm="2" offset-md="4" md="4" sm="8">
-                <form-auth></form-auth>
-            </v-col>
+        <v-row justify="center">
+                <list-user></list-user>
         </v-row>
     </v-container>
 </v-main>
 </template>
 
 <script>
-import FormAuth from "../components/Auth.vue";
+import listUser from "../components/listUser.vue";
 export default {
-
     components: {
-        FormAuth
+        listUser
     },
 };
 </script>
 
 <style>
-#blockAuth {
-    padding: 80px;
-}
 </style>

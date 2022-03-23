@@ -10,14 +10,13 @@ export default new Vuex.Store({
     sousCategorie: null,
     isLoading: false,
     photos: null,
-    addPhoto: null,
     imgsArr: [],
     token: localStorage.getItem('user-token') || '',
     isAuth: localStorage.getItem('is-auth') || false,
+    listUser: null,
     error: null,
-    refresh: 0,
-    arrayImgReport: [],
-    arrayImgPort: []
+    counterCateg: 0,
+    counterUser: 0
   },
   mutations: {
     setCategorie(state, categorie){
@@ -27,24 +26,17 @@ export default new Vuex.Store({
     setIsLoading(state) {
       state.isLoading = true;
     },
-    setOffLoading(state){
-      state.isLoading = false;
-    },
     setPhotos(state, photos){
-      state.photos = photos;
+      state.imgsArr = [];
       photos.forEach(function(value){
         state.imgsArr.push(
           {
-            "src": "https://dodie-api.site/photos/" + value.filePath,
+            "src": "https://sabso-api.xyz/photos/" + value.filePath,
             "description": value.description,
             "id": value.id,
           }
         )
       })
-      state.isLoading = false;
-    },
-    setAddPhoto(state, addPhoto){
-      state.addPhoto = addPhoto;
       state.isLoading = false;
     },
     setAuth(state,value){
@@ -55,39 +47,46 @@ export default new Vuex.Store({
       state.error = value;
       state.isLoading = false;
     },
-    setImgHome(state,{img,nomCategorie}){
-      (nomCategorie === 'Reportages') ? state.arrayImgReport.push(img):state.arrayImgPort.push(img);
-    },
-    refresh(state){
-      state.refresh += 1;
-    },
     setSousCategorie(state, sousCategorie){
       state.sousCategorie = sousCategorie;
       state.isLoading = false;
     },
+    setListUser(state, listUser){
+      state.listUser = listUser;
+      state.isLoading = false;
+    },
+    setCounterCateg(state, count){
+      state.counterCateg = count;
+      state.isLoading = false;
+    },
+    setCounterUser(state, count){
+      state.counterUser = count;
+      state.isLoading = false;
+    },
   },
   actions: {
-    async getCategorie({commit}) {
-      commit("setIsLoading");
-      const categorie = await api.getCategories();
-      commit("setCategorie", categorie);
-    },
-
+    
     async getPhotos({commit},data) {
       commit("setIsLoading");
       const photos = await api.getPhotos(data);
       commit("setPhotos", photos);
     },
 
-    async addPhoto({commit},data) {
+    async addPhoto({commit, dispatch},data) {
       commit("setIsLoading");
       if(data.file.size > (8000000)){
         commit("setError", 'Fichier trop volumineux !');
       }else{
         commit("setError", null);
         await api.addPhoto(data);
+        dispatch('getPhotos',data.sousCateg);
       }
-      commit("refresh");
+    },
+
+    async deletePhoto({commit, dispatch},data) {
+      commit("setIsLoading");
+      await api.deletePhoto(data.id);
+      dispatch('getPhotos',data.idSousCateg);
     },
 
     async login({commit},data) {
@@ -103,47 +102,63 @@ export default new Vuex.Store({
       commit("setAuth",localStorage.getItem('is-auth'));
     },
 
-    async deletePhoto({commit},data) {
-      commit("setIsLoading");
-      await api.deletePhoto(data);
-      commit("refresh");
-      commit("setOffLoading");
-    },
-
-    async getPhotosHomePage({commit},categorie) {
-      categorie.forEach(element1 => {
-            element1.sousCategories.forEach(element2 => {
-                let photos = (!element2.photos.length) ? "@/assets/img/no_image.jpeg" : "https://dodie-api.site/photos/" + element2.photos[0].filePath
-                let img = {
-                  "nomSousCateg": element2.nomSouscategorie,
-                  "photo": photos,
-                  "id": element2.id
-                }
-                let nomCategorie = element1.nomCategorie;
-                commit("setImgHome", {img,nomCategorie});
-            });
-      });
-    },
-
-    async createSousCateg({commit},data) {
+    async createSousCateg({commit, dispatch},data) {
       commit("setIsLoading");
       await api.createSousCateg(data);
-      commit("setOffLoading");
-      commit("refresh");
+      dispatch('getCategorie');
     },
 
-    async deleteSousCateg({commit},data) {
+    async deleteSousCateg({commit, dispatch},data) {
       commit("setIsLoading");
-      await api.deleteSousCateg(data).then(() => {
-        commit("refresh");
-      });
-      commit("setOffLoading");
+      await api.deleteSousCateg(data);
+      dispatch('getCategorie');
     },
 
     async getSousCategorie({commit},data) {
       commit("setIsLoading");
       const sousCategorie = await api.getSousCategorie(data);
       commit("setSousCategorie", sousCategorie);
+    },
+
+    async getCategorie({commit}) {
+      commit("setIsLoading");
+      const categorie = await api.getCategories();
+      let counterCateg = 0;
+      categorie.forEach(elmt => counterCateg += elmt.sousCategories.length);
+      commit("setCounterCateg", counterCateg);
+      commit("setCategorie", categorie);
+    },
+
+    async createCateg({commit, dispatch},data) {
+      commit("setIsLoading");
+      await api.createCateg(data);
+      dispatch('getCategorie');
+    },
+
+    async deleteCateg({commit,dispatch},data) {
+      commit("setIsLoading");
+      await api.deleteCateg(data);
+      dispatch('getCategorie');
+    },
+
+    async getListUser({commit}) {
+      commit("setIsLoading");
+      const listUser = await api.getUser();
+      let counterUser = listUser.length;
+      commit("setCounterUser", counterUser);
+      commit("setListUser", listUser);
+    },
+
+    async deleteUser({commit,dispatch},data) {
+      commit("setIsLoading");
+      await api.deleteUser(data);
+      dispatch("getListUser");
+    },
+
+    async createUser({commit, dispatch},data) {
+      commit("setIsLoading");
+      await api.createUser(data).then(setTimeout(() => dispatch("login",data), 3500)).then(dispatch("getCategorie"));
+      
     },
 
   },

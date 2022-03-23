@@ -1,9 +1,7 @@
 <template>
 <v-app id="app-body">
-        <menus :key="menuKey"></menus>
-    <v-container id="block-gallery">
-        <router-view :key="$route.fullPath"></router-view>
-    </v-container>
+    <menus :key="menuKey"></menus>
+    <router-view :key="$route.fullPath"></router-view>
     <v-container id="footer">
         <v-container v-if="this.$route.name !== 'Home'" id="logos-footer">
             <v-row justify="center">
@@ -22,14 +20,17 @@
         <v-footer color="black" absolute>
             <span class="white--text">Sabso &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
+            <router-link aria-label="go to login page" to="/backoffice">
+                <v-icon color="white">mdi-cog</v-icon>
+            </router-link>
             <router-link aria-label="avatar you are authenticate" to="/">
-                <v-avatar v-if="isAuth" @click="logout" color="grey">
-                    <v-icon dark>
+                <v-avatar size="28" v-if="isAuth" @click="logout" color="grey">
+                    <v-icon dark small>
                         mdi-account-circle
                     </v-icon>
                 </v-avatar>
             </router-link>
-            <router-link aria-label="go to login page" to="/backoffice">
+            <router-link aria-label="go to login page" to="/login">
                 <v-icon color="white">mdi-lock</v-icon>
             </router-link>
         </v-footer>
@@ -63,6 +64,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
 .block-gallery {
     position: absolute;
     top: 80px;
@@ -86,6 +89,10 @@ export default {
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+.font-comfortaa{
+    font-family: 'Comfortaa', cursive !important;
 }
 
 .scrollMenu{

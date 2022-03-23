@@ -17,19 +17,19 @@
             <v-progress-circular v-if="isLoading == true" indeterminate color="blue"></v-progress-circular>
         </v-row>
         <masonry :gutter="{ default: '10px', 700: '10px' }" :cols="{ default: 3, 500: 2, 300: 5, 100: 1 }">
-            <v-card v-for="(item, index) in JSON.parse(JSON.stringify(imgsArr))" :key="index" class="mt-2 mb-2" outlined color="transparent" @click="() => showImg(index)">
-                <v-img :src="item.src" lazy-src="https://picsum.photos/id/11/100/60" :alt="item.description">
+            <v-card v-for="item in JSON.parse(JSON.stringify(imgsArr))" :key="item.id" class="mt-2 mb-2" outlined color="transparent">
+                <v-img @click="() => showImg(index)" :src="item.src" lazy-src="https://picsum.photos/id/11/100/60" :alt="item.description">
                     <template v-slot:placeholder>
                         <v-row align="center" justify="center">
                             <v-progress-circular indeterminate color="black"></v-progress-circular>
                         </v-row>
                     </template>
-                    <v-row justify="center">
-                        <v-btn id="delete-btn" v-if="isAuth" v-on:click="clickDeletePhoto(item.id)">
-                            <v-icon class="icon">mdi-delete</v-icon>
-                        </v-btn>
-                    </v-row>
                 </v-img>
+                <v-row justify="center">
+                    <v-btn id="delete-btn" v-if="isAuth" v-on:click="clickDeletePhoto(item)">
+                        <v-icon class="icon">mdi-delete</v-icon>
+                    </v-btn>
+                </v-row>
             </v-card>
         </masonry>
         <vue-easy-lightbox :visible="visible" :imgs="JSON.parse(JSON.stringify(imgsArr))" :index="index" @hide="handleHide"></vue-easy-lightbox>
@@ -60,6 +60,7 @@ export default {
     methods: {
         ...mapActions(["getPhotos", "deletePhoto", "getSousCategorie"]),
         clickDeletePhoto: function (idPhoto) {
+            idPhoto.idSousCateg = this.$route.params.id;
             this.deletePhoto(idPhoto);
         },
         showImg(index) {

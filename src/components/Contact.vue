@@ -6,42 +6,6 @@
     <v-row justify="center">
         
         <v-col cols="12" sm="8">
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-action>
-                            <v-icon>mdi-phone</v-icon>
-                        </v-list-item-action>
-
-                        <v-list-item-content>
-                            <v-list-item-title class="font-weight-light">(650) 555-1234</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-divider inset></v-divider>
-
-                    <v-list-item>
-                        <v-list-item-action>
-                            <v-icon>mdi-email</v-icon>
-                        </v-list-item-action>
-
-                        <v-list-item-content>
-                            <v-list-item-title class="font-weight-light">elodie(.)bolatto(@)gmail.com</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-
-                    <v-divider inset></v-divider>
-
-                    <v-list-item>
-                        <v-list-item-action>
-                            <v-icon>mdi-map-marker</v-icon>
-                        </v-list-item-action>
-
-                        <v-list-item-content>
-                            <v-list-item-title class="font-weight-light">Annecy, Haute-Savoie 74000</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-
-                    <v-divider inset></v-divider>
-                </v-list>
         </v-col>
         <v-container id="logos-footer">
             <v-row justify="center">
