@@ -1,4 +1,4 @@
-# dodie-vue-app
+# 100-dwich
 
 ## Project setup
 ```
